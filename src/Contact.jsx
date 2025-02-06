@@ -1,6 +1,12 @@
 import React from "react";
+import { FaArrowUp } from "react-icons/fa";
 
 const Contact = () => {
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="bg-black text-white min-h-screen flex flex-col justify-between">
       {/* Marquee Section */}
@@ -40,7 +46,7 @@ const Contact = () => {
         {["Home", "Studio", "Work", "Plans", "Blog", "Contact"].map((item) => (
           <button
             key={item}
-            className="bg-gray-800 px-6 py-3 rounded-md text-lg hover:bg-gray-700 transition"
+            className="bg-white/10  px-6 py-3 text-lg hover:bg-white/20 transition"
           >
             {item}
           </button>
@@ -48,17 +54,11 @@ const Contact = () => {
       </div>
 
       {/* Footer */}
-      <footer className="text-center text-gray-400 text-sm py-4">
-        <p className="mb-2">COPYRIGHT © UPS — POWERED BY WEBFLOW</p>
-        <p>
-          <a href="#" className="underline">
-            STYLE GUIDE
-          </a>{" "}
-          |{" "}
-          <a href="#" className="underline">
-            LICENSING
-          </a>
+      <footer className="text-center text-gray-400 text-sm py-4 cursor-pointer" onClick={scrollToTop}>
+        <p className="flex justify-center items-center space-x-2">
+          <span>BACK TO THE TOP</span> <FaArrowUp />
         </p>
+        <p className="mt-2">COPYRIGHT © UPS — POWERED BY WEBFLOW STYLE GUIDE LICENSING</p>
       </footer>
     </div>
   );

@@ -40,8 +40,8 @@ export default function WorksPage() {
         animate={{ opacity: showText ? 1 : 0 }}
         transition={{ duration: 0.5 }}
       >
-        WORKS
-        <span className="text-[4rem] align-super ml-2">‘19-24</span>
+        <h1 className="text-[10rem] font-bold mt-15 mb-12 text-center">WORKS<span className="text-[3rem] align-super ml-2">‘19-24</span></h1>
+        
       </motion.div>
 
       {/* Image Grid Appearing on Scroll */}

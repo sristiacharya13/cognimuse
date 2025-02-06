@@ -89,7 +89,7 @@ const ContactForm = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="mt-6 w-full bg-white text-black py-4 text-sm font-semibold uppercase tracking-wide"
+            className="mt-6 w-full bg-white text-black py-4 text-sm font-semibold uppercase tracking-wide hover:bg-white/75 transition"
           >
             Submit Project
           </button>

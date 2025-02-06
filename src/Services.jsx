@@ -38,7 +38,7 @@ const Services = () => {
 
   return (
     <div className="bg-black min-h-screen text-white p-8 flex flex-col items-center">
-      <h1 className="text-[10rem] font-bold mb-32 text-center">SERVICES</h1>
+      <h1 className="text-[10rem] font-bold mt-15 mb-12 text-center">SERVICES</h1>
 
       <div className="flex w-full max-w-6xl">
         <div className="w-1/2 relative">

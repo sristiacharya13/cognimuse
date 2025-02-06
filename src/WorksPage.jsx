@@ -11,54 +11,56 @@ const images = [
 ];
 
 export default function WorksPage() {
-  const [scrolled, setScrolled] = useState(false);
+  const [showText, setShowText] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setScrolled(true);
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setShowText(false); // Hide text, show images
       } else {
-        setScrolled(false);
+        setShowText(true); // Show text, hide images
       }
+
+      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   return (
-    <div className="h-screen w-full bg-black text-white flex flex-col items-center justify-center relative">
-      {/* Large Text "WORKS" */}
+    <div className="relative min-h-screen bg-black text-white flex items-center justify-center">
+      {/* Large Text "WORKS" with Superscript */}
       <motion.div
-        initial={{ opacity: 1, scale: 1 }}
-        animate={{ opacity: scrolled ? 0 : 1, scale: scrolled ? 0.8 : 1 }}
-        transition={{ duration: 0.8 }}
-        className="absolute w-full h-screen flex items-center justify-center text-[12rem] font-extrabold"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[10vw] font-bold uppercase leading-none text-center"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: showText ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
       >
-        WORKS <span className="text-[4rem] ml-4">‘19-24</span>
+        WORKS
+        <span className="text-[4rem] align-super ml-2">‘19-24</span>
       </motion.div>
 
       {/* Image Grid Appearing on Scroll */}
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: scrolled ? 1 : 0, y: scrolled ? 0 : 50 }}
-        transition={{ duration: 0.8 }}
-        className="grid grid-cols-3 gap-6 mt-20"
+        className={`absolute inset-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-10`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showText ? 0 : 1 }}
+        transition={{ duration: 0.5 }}
       >
         {images.map((src, index) => (
-          <motion.div
+          <motion.img
             key={index}
+            src={src}
+            alt={`Work ${index + 1}`}
+            className="w-full h-auto object-cover"
             initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: scrolled ? 1 : 0, y: scrolled ? 0 : 50 }}
-            transition={{ duration: 0.8, delay: index * 0.1 }}
-          >
-            <img
-              src={src}
-              alt={`Work ${index + 1}`}
-              loading="lazy"
-              className="w-[300px] h-[200px] object-cover rounded-lg shadow-lg"
-            />
-          </motion.div>
+            animate={{ opacity: showText ? 0 : 1, y: showText ? 50 : 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+          />
         ))}
       </motion.div>
     </div>

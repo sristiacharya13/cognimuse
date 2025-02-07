@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 
@@ -19,16 +19,28 @@ const Contact = () => {
     { path: "/", label: "Home" },
     { path: "/studio", label: "Studio" },
     { path: "/work", label: "Work" },
-    { path: "/plans", label: "plans" },
+    { path: "/plans", label: "Plans" },
     { path: "/blog", label: "Blog" },
     { path: "/contact", label: "Contact" },
   ];
 
+  // State for hover effect
+  const [isHovering, setIsHovering] = useState(false);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+
+  // Mouse move event to track cursor position
+  const handleMouseMove = (event) => {
+    setCursorPos({ x: event.clientX, y: event.clientY });
+  };
+
   return (
-    <div className="bg-black text-white min-h-screen flex flex-col justify-between">
+    <div
+      className="bg-black text-white min-h-screen flex flex-col justify-between relative"
+      onMouseMove={handleMouseMove}
+    >
       {/* Marquee Section */}
       <div className="overflow-hidden whitespace-nowrap py-6 mt-16">
-        <div className="marquee flex space-x-10 items-center h-[250px]">
+        <div className="animate-marquee flex space-x-10 items-center h-[250px]">
           {Array(5)
             .fill(0)
             .map((_, index) => (
@@ -42,12 +54,26 @@ const Contact = () => {
                   className="h-20 w-20 md:h-48 md:w-48"
                 />
                 <span className="text-[12vw] font-bold uppercase leading-none">
-                  Let's Talk&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  Let's Talk&nbsp;
                 </span>
               </div>
             ))}
         </div>
       </div>
+
+      {/* Hover Effect */}
+      {isHovering && (
+        <div
+          className="fixed px-[0.3vw] py-[0.3vw] bg-black/70 text-white text-[1.3vw] font-normal rounded-md flex items-center pointer-events-none transition-transform duration-50"
+          style={{
+            left: `${cursorPos.x}px`,
+            top: `${cursorPos.y}px`,
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          Say Hello <span className="ml-1">😎</span>
+        </div>
+      )}
 
       {/* Logo Above Navigation */}
       <div className="flex justify-center py-6">
@@ -62,7 +88,13 @@ const Contact = () => {
       <div className="py-6 px-6">
         <div className="hidden md:flex justify-center space-x-4">
           {navItems.map(({ path, label }, index) => (
-            <Link key={index} to={path} className={getLinkClass(path)}>
+            <Link
+              key={index}
+              to={path}
+              className={getLinkClass(path)}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+            >
               {label}
             </Link>
           ))}
@@ -71,7 +103,13 @@ const Contact = () => {
         {/* Mobile View: 2 Rows, 3 Columns */}
         <div className="grid grid-cols-2 gap-4 md:hidden">
           {navItems.map(({ path, label }, index) => (
-            <Link key={index} to={path} className={getLinkClass(path)}>
+            <Link
+              key={index}
+              to={path}
+              className={getLinkClass(path)}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+            >
               {label}
             </Link>
           ))}
@@ -90,6 +128,23 @@ const Contact = () => {
           COPYRIGHT © UPS — POWERED BY WEBFLOW STYLE GUIDE LICENSING
         </p>
       </footer>
+
+      {/* Styles */}
+      <style jsx>{`
+        @keyframes marquee {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-100%);
+          }
+        }
+        .animate-marquee {
+          display: flex;
+          width: max-content;
+          animation: marquee 300s linear infinite;
+        }
+      `}</style>
     </div>
   );
 };

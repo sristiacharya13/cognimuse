@@ -13,7 +13,7 @@ const Stdio = () => {
                 <img
                   src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6af16/6717997491fcff9b174daed5_about.avif"
                   alt="U Digital Studio Logo"
-                  className="object-cover w-full h-full"
+                  className="object-cover w-full h-full rounded-lg"
                 />
                 </div>
                 <div className="text-6xl font-bold">ABOUT</div>

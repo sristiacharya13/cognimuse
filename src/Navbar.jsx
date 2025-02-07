@@ -1,172 +1,98 @@
-{/*
-import React from "react";
-import { Link } from 'react-router-dom';
-
-const Navbar = () => {
-  return (
-    <div className="w-full bg-black text-white">
-  
-      <nav className="flex justify-between items-center px-12 py-8 text-lg">
-        
-        <div className="flex space-x-8">
-          <Link to="/" className="hover:text-gray-400 transition">Home</Link>
-          <Link to="/studio" className="hover:text-gray-400 transition">Studio</Link>
-          <Link to="/work" className="hover:text-gray-400 transition">Work</Link>
-        </div>
-
-       
-        <div className="absolute left-1/2 transform -translate-x-1/2">
-          <img
-            src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6aef7/67093575f256069376139ec6_logo-white.svg"
-            alt="U Digital Studio Logo"
-            className="h-12"
-          />
-        </div>
-
-        
-        <div className="flex space-x-8 items-center">
-          <Link to="/blog" className="hover:text-gray-400 transition">Blog</Link>
-          <Link to="/contact" className="hover:text-gray-400 transition">Contact</Link>
-          <div className="flex items-center">
-            <Link to="/cart" className="hover:text-gray-400 transition">Cart</Link>
-            <span className="ml-2">0</span>
-          </div>
-        </div>
-      </nav>
-
-  
-      <div className="flex flex-col justify-center items-center min-h-screen space-y-12">
-        
-        <div className="cube-container">
-          <div className="cube">
-            {['front', 'back', 'left', 'right', 'top', 'bottom'].map(face => (
-              <div key={face} className={`cube-face cube-${face} bg-white p-20 text-black text-center shadow-lg`}>
-                <img
-                  src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6aef7/67094393682de8d96652a577_logo.svg"
-                  alt="U Digital Studio Logo"
-                  className="h-20 mx-auto mb-4"
-                />
-                <div className="text-6xl font-bold">DIGITAL</div>
-                <div className="text-6xl font-bold">STUDIO</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex justify-between w-full px-16 text-lg text-gray-300 mt-12">
-          <p className="text-left w-1/3">READY TO FIND YOUR NEXT IDEAL<br/>TEMPLATE</p>
-          <p className="text-center w-1/3">UPS <br/>DIGITAL STUDIO</p>
-          <p className="text-right w-1/3">MADE TO LEAVE A MARK.</p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Navbar;
-*/}
-
-{/*
-import React from "react";
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { FiMenu, FiX } from "react-icons/fi";
 
 const Navbar = () => {
   const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-  const getLinkClass = (path) => {
-    return location.pathname === path
-      ? "text-white bg-white/20 px-3.5 py-2.5 text-lg rounded"
-      : "text-white/70 bg-white/10 px-3.5 py-2.5 text-lg rounded hover:bg-white/20 transition";
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
+
+  const handleResize = () => {
+    if (window.innerWidth >= 768) {
+      setIsOpen(false); // Close mobile menu when resizing to desktop
+    }
+    setIsMobile(window.innerWidth < 768);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const getLinkClass = (path) =>
+    location.pathname === path
+      ? "text-white font-semibold text-lg bg-white/20 px-3.5 py-2.5"
+      : "text-white/80 font-semibold text-lg bg-white/10 px-3.5 py-2.5 hover:bg-white/20 transition";
 
   return (
     <div className="w-full bg-black text-white">
-      <nav className="flex justify-between items-center px-12 py-8">
-        <div className="flex space-x-8">
+      <nav className="flex justify-between items-center px-6 md:px-12 py-6 relative">
+        
+        {/* Logo - Centered in Desktop, Left in Mobile */}
+        <div className="md:absolute md:left-1/2 md:transform md:-translate-x-1/2">
+          <img
+            src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6aef7/67093575f256069376139ec6_logo-white.svg"
+            alt="U Digital Studio Logo"
+            className="h-10 md:h-12"
+          />
+        </div>
+
+        {/* Desktop Navigation Links */}
+        <div className="hidden md:flex space-x-8">
           <Link to="/" className={getLinkClass("/")}>Home</Link>
           <Link to="/studio" className={getLinkClass("/studio")}>Studio</Link>
           <Link to="/work" className={getLinkClass("/work")}>Work</Link>
         </div>
 
-        <div className="absolute left-1/2 transform -translate-x-1/2">
-          <img
-            src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6aef7/67093575f256069376139ec6_logo-white.svg"
-            alt="U Digital Studio Logo"
-            className="h-12"
-          />
-        </div>
-
-        <div className="flex space-x-8 items-center">
-          <Link to="/blog" className={getLinkClass("/blog")}>Blog</Link>
-          <Link to="/contact" className={getLinkClass("/contact")}>Contact</Link>
-          <Link to="/cart" className={`${getLinkClass("/cart")} flex items-center`}>Cart | <span className="ml-1">0</span></Link>
-        </div>
-      </nav>
-
-      <div className="flex flex-col justify-center items-center min-h-screen space-y-12">
-        <div className="cube-container">
-          <div className="cube">
-            {['front', 'back', 'left', 'right', 'top', 'bottom'].map(face => (
-              <div key={face} className={`cube-face cube-${face} bg-white p-20 text-black text-center shadow-lg`}>
-                <img
-                  src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6aef7/67094393682de8d96652a577_logo.svg"
-                  alt="U Digital Studio Logo"
-                  className="h-20 mx-auto mb-4"
-                />
-                <div className="text-6xl font-bold">DIGITAL</div>
-                <div className="text-6xl font-bold">STUDIO</div>
-              </div>
-            ))}
+        {/* Right Side - Blog, Contact, Cart & Menu Button (Mobile) */}
+        <div className="flex items-center space-x-4 md:space-x-8">
+          {/* Blog and Contact - Moved to the Right Side */}
+          <div className="hidden md:flex space-x-6">
+            <Link to="/blog" className={getLinkClass("/blog")}>Blog</Link>
+            <Link to="/contact" className={getLinkClass("/contact")}>Contact</Link>
           </div>
-        </div>
 
-        <div className="flex justify-between w-full px-16 text-lg text-gray-300 mt-12">
-          <p className="text-left w-1/3">READY TO FIND YOUR NEXT IDEAL<br/>TEMPLATE</p>
-          <p className="text-center w-1/3">UPS <br/>DIGITAL STUDIO</p>
-          <p className="text-right w-1/3">MADE TO LEAVE A MARK.</p>
-        </div>
-      </div>
-    </div>
-  );
-};
+          {/* Cart Icon */}
+          <Link to="/cart" className={`${getLinkClass("/cart")} flex items-center`}>
+            Cart | <span className="ml-1">0</span>
+          </Link>
 
-export default Navbar;
-*/}
-import React from "react";
-import { Link, useLocation } from 'react-router-dom';
-
-const Navbar = () => {
-  const location = useLocation();
-
-  const getLinkClass = (path) => {
-    return location.pathname === path
-      ? "text-white bg-white/20 px-3.5 py-2.5 text-lg"
-      : "text-white/70 bg-white/10 px-3.5 py-2.5 text-lg hover:bg-white/20 transition";
-  };
-
-  return (
-    <div className="w-full bg-black text-white">
-      <nav className="flex justify-between items-center px-12 py-8">
-        <div className="flex space-x-8">
-          <Link to="/" className={getLinkClass("/")}>Home</Link>
-          <Link to="/studio" className={getLinkClass("/studio")}>Studio</Link>
-          <Link to="/work" className={getLinkClass("/work")}>Work</Link>
-        </div>
-
-        <div className="absolute left-1/2 transform -translate-x-1/2">
-          <img
-            src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6aef7/67093575f256069376139ec6_logo-white.svg"
-            alt="U Digital Studio Logo"
-            className="h-12"
-          />
-        </div>
-
-        <div className="flex space-x-8 items-center">
-          <Link to="/blog" className={getLinkClass("/blog")}>Blog</Link>
-          <Link to="/contact" className={getLinkClass("/contact")}>Contact</Link>
-          <Link to="/cart" className={`${getLinkClass("/cart")} flex items-center`}>Cart | <span className="ml-1">0</span></Link>
+          {/* Mobile Menu Button */}
+          {isMobile && (
+            <button
+              onClick={toggleMenu}
+              className="md:hidden text-white text-2xl focus:outline-none"
+            >
+              {isOpen ? <FiX /> : <FiMenu />}
+            </button>
+          )}
         </div>
       </nav>
+
+      {/* Full-Screen Mobile Menu Overlay */}
+      {isOpen && (
+        <div className="fixed top-0 left-0 w-full h-[80vh] bg-black/90 text-white flex flex-col items-center justify-center space-y-6 z-50">
+          {/* Close Button - Positioned at the top-right */}
+          <button
+            onClick={toggleMenu}
+            className="absolute top-4 right-6 text-white text-3xl"
+          >
+            <FiX />
+          </button>
+
+          <Link to="/" className="text-white font-semibold text-xl" onClick={toggleMenu}>Home</Link>
+          <Link to="/studio" className="text-white font-semibold text-xl" onClick={toggleMenu}>Studio</Link>
+          <Link to="/work" className="text-white font-semibold text-xl" onClick={toggleMenu}>Work</Link>
+          <Link to="/blog" className="text-white font-semibold text-xl" onClick={toggleMenu}>Blog</Link>
+          <Link to="/contact" className="text-white font-semibold text-xl" onClick={toggleMenu}>Contact</Link>
+        </div>
+      )}
     </div>
   );
 };

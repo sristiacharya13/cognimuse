@@ -1,12 +1,23 @@
 import React, { useState } from "react";
+import { FiX } from "react-icons/fi";
 import Cards from "./Cards";
 
 const About = () => {
   const [showVideo, setShowVideo] = useState(false);
+  const [videoSrc, setVideoSrc] = useState("");
+
+  const handleOpenVideo = () => {
+    setVideoSrc("https://www.youtube.com/embed/KVh7cTfPTgs"); // Replace with your actual video URL
+    setShowVideo(true);
+  };
+
+  const handleCloseVideo = () => {
+    setShowVideo(false);
+    setVideoSrc("");
+  };
 
   return (
     <div className="bg-black text-white min-h-screen flex flex-col justify-center items-center text-center px-6">
-      {/* Infinite Marquee */}
       <div className="relative w-full overflow-hidden mt-[-20px]">
         <div className="flex whitespace-nowrap animate-marquee mt-[90px] mb-[100px]">
           {[...Array(10)].map((_, i) => (
@@ -16,7 +27,7 @@ const About = () => {
               </span>
               <button
                 className="border-2 border-white rounded-full p-6 flex items-center justify-center w-[10vw] h-[10vw] min-w-[60px] min-h-[60px] mx-2 hover:bg-white group transition duration-300"
-                onClick={() => setShowVideo(true)}
+                onClick={handleOpenVideo}
               >
                 <svg
                   className="w-[4vw] h-[4vw] min-w-[25px] min-h-[25px] text-white group-hover:text-black transition duration-300"
@@ -31,23 +42,25 @@ const About = () => {
         </div>
       </div>
 
-      {/* Video Popup (Thumbnail Only) */}
       {showVideo && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black/50 z-50 backdrop-blur-sm"> {/* Opacity and blur added */}
           <button
             className="absolute top-4 right-4 text-white text-4xl font-bold z-50"
-            onClick={() => setShowVideo(false)}
+            onClick={handleCloseVideo}
           >
-            ✖
+            <FiX className="text-white hover:text-gray-300 transition duration-200" />
           </button>
           <div className="relative w-[80vw] max-w-[900px]">
-            {/* Video Thumbnail */}
-            <img
-              className="w-full rounded-lg cursor-pointer"
-              src="https://i.ytimg.com/vi/KVh7cTfPTgs/maxresdefault.jpg"
-              alt="Video Thumbnail"
-              onClick={() => window.open("https://www.youtube.com/watch?v=KVh7cTfPTgs", "_blank")}
-            />
+            {videoSrc && (
+              <iframe
+                className="w-full h-[50vw] max-h-[500px] rounded-lg"
+                src={videoSrc}
+                title="YouTube Video"
+                frameBorder="0"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            )}
           </div>
         </div>
       )}

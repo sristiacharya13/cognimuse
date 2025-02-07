@@ -24,11 +24,11 @@ const Contact = () => {
     { path: "/contact", label: "Contact" },
   ];
 
-  // State for hover effect
-  const [isHovering, setIsHovering] = useState(false);
+  // State for hover effect on marquee section only
+  const [isHoveringMarquee, setIsHoveringMarquee] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
 
-  // Mouse move event to track cursor position
+  // Track cursor position
   const handleMouseMove = (event) => {
     setCursorPos({ x: event.clientX, y: event.clientY });
   };
@@ -39,7 +39,11 @@ const Contact = () => {
       onMouseMove={handleMouseMove}
     >
       {/* Marquee Section */}
-      <div className="overflow-hidden whitespace-nowrap py-6 mt-16">
+      <div
+        className="overflow-hidden whitespace-nowrap py-6 mt-16"
+        onMouseEnter={() => setIsHoveringMarquee(true)}
+        onMouseLeave={() => setIsHoveringMarquee(false)}
+      >
         <div className="animate-marquee flex space-x-10 items-center h-[250px]">
           {Array(5)
             .fill(0)
@@ -61,8 +65,8 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Hover Effect */}
-      {isHovering && (
+      {/* Hover Effect (Only on Marquee Section) */}
+      {isHoveringMarquee && (
         <div
           className="fixed px-[0.3vw] py-[0.3vw] bg-black/70 text-white text-[1.3vw] font-normal rounded-md flex items-center pointer-events-none transition-transform duration-50"
           style={{
@@ -88,13 +92,7 @@ const Contact = () => {
       <div className="py-6 px-6">
         <div className="hidden md:flex justify-center space-x-4">
           {navItems.map(({ path, label }, index) => (
-            <Link
-              key={index}
-              to={path}
-              className={getLinkClass(path)}
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
-            >
+            <Link key={index} to={path} className={getLinkClass(path)}>
               {label}
             </Link>
           ))}
@@ -103,13 +101,7 @@ const Contact = () => {
         {/* Mobile View: 2 Rows, 3 Columns */}
         <div className="grid grid-cols-2 gap-4 md:hidden">
           {navItems.map(({ path, label }, index) => (
-            <Link
-              key={index}
-              to={path}
-              className={getLinkClass(path)}
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
-            >
+            <Link key={index} to={path} className={getLinkClass(path)}>
               {label}
             </Link>
           ))}
@@ -118,7 +110,7 @@ const Contact = () => {
 
       {/* Footer */}
       <footer
-        className="text-center text-gray-400 text-sm py-4 cursor-pointer"
+        className="text-center text-white-400 text-sm py-4 cursor-pointer"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       >
         <p className="flex justify-center items-center space-x-2">

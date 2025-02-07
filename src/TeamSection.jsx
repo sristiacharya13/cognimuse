@@ -48,6 +48,7 @@ const TeamSection = () => {
             <h2 className="text-2xl font-bold mb-2">{member.name}</h2>
             <p className="text-gray-400 mb-4">{member.role}</p>
 
+            {/* Social Media Icons with Hover Effects */}
             <div className="flex justify-center space-x-4">
               {socialIcons.map((social) => (
                 <a 
@@ -55,7 +56,7 @@ const TeamSection = () => {
                   href={social.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition text-2xl"
+                  className="text-gray-400 text-2xl transition duration-300 transform hover:text-[#bfc3c5] hover:scale-125"
                 >
                   {social.icon}
                 </a>

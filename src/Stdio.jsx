@@ -1,34 +1,43 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const Stdio = () => {
-  
   return (
-    <div className="w-full bg-black text-white">
-      <div className="flex flex-col justify-center items-center min-h-screen space-y-12">
-        <div className="cube-container">
-          <div className="cube">
-            {['front', 'back', 'left', 'right', 'top', 'bottom'].map(face => (
-              <div key={face} className={`cube-face cube-${face} bg-white text-black text-center shadow-lg`}>
-                <div className="rounded-full overflow-hidden mx-auto mb-4" style={{width:'100px',height:'100px'}}>
-                <img
-                  src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6af16/6717997491fcff9b174daed5_about.avif"
-                  alt="U Digital Studio Logo"
-                  className="object-cover w-full h-full rounded-lg"
-                />
-                </div>
-                <div className="text-6xl font-bold">ABOUT</div>
-                <div className="text-6xl font-bold">STUDIO&copy;</div>
-              </div>
-            ))}
-          </div>
-        </div>
+    <div className="flex items-center justify-center w-full h-screen bg-black">
+      <motion.div
+        className="relative w-[450px] h-[400px]"
+        animate={{
+          rotateX: [0, 30, 0, -30, 0],
+          rotateY: [0, 45, 45, -45, -45],
+        }}
+        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+        style={{ transformStyle: "preserve-3d" }}
+      >
+        {[
+          { className: "front", transform: "translateZ(225px)" },
+          { className: "back", transform: "translateZ(-225px) rotateY(180deg)" },
+          { className: "left", transform: "translateX(-225px) rotateY(-90deg)" },
+          { className: "right", transform: "translateX(225px) rotateY(90deg)" },
+        ].map((face, index) => (
+          <div
+            key={index}
+            className="absolute  w-[450px] h-[400px] bg-white border-2 border-gray-300/100 flex flex-col items-center justify-center text-black text-5xl font-extrabold"
+            style={{ transform: face.transform }}
+          >
+           
+            <div className="w-[150px] h-[150px] absolute left-5 top-4 rounded-full overflow-hidden">
+              <img
+                src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6af16/6717997491fcff9b174daed5_about.avif"
+                alt="U Digital Studio Logo"
+                className="w-full h-full object-cover"
+              />
+            </div>
 
-        <div className="flex justify-between w-full px-16 text-lg text-gray-300 mt-12">
-          <p className="text-left w-1/3">READY TO FIND YOUR NEXT IDEAL<br/>TEMPLATE</p>
-          <p className="text-center w-1/3">UPS <br/>DIGITAL STUDIO</p>
-          <p className="text-right w-1/3">MADE TO LEAVE A MARK.</p>
-        </div>
-      </div>
+            <div className="mt-4  absolute bottom-8 left-2 text-8xl font-bold text-black "  >ABOUT   <br /> STUDIO&copy; </div>
+           
+          </div>
+        ))}
+      </motion.div>
     </div>
   );
 };

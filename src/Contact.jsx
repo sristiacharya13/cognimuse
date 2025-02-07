@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaArrowUp } from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
 
 const Contact = () => {
+  const location = useLocation();
 
-  const scrollToTop = () => {
+  // Scroll to top when route changes
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, [location.pathname]);
+
+  const getLinkClass = (path) =>
+    location.pathname === path
+      ? "text-white font-semibold text-lg bg-white/20 px-3.5 py-2.5"
+      : "text-white/80 font-semibold text-lg bg-white/10 px-3.5 py-2.5 hover:bg-white/20 transition";
+
+  const navItems = [
+    { path: "/", label: "Home" },
+    { path: "/studio", label: "Studio" },
+    { path: "/work", label: "Work" },
+    { path: "/plans", label: "plans" },
+    { path: "/blog", label: "Blog" },
+    { path: "/contact", label: "Contact" },
+  ];
 
   return (
     <div className="bg-black text-white min-h-screen flex flex-col justify-between">
@@ -22,7 +39,7 @@ const Contact = () => {
                 <img
                   src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6aef7/67093575f256069376139ec6_logo-white.svg"
                   alt="Logo"
-                  className="h-48 w-48"
+                  className="h-20 w-20 md:h-48 md:w-48"
                 />
                 <span className="text-[12vw] font-bold uppercase leading-none">
                   Let's Talk&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -33,32 +50,45 @@ const Contact = () => {
       </div>
 
       {/* Logo Above Navigation */}
-      <div className="flex justify-center py-6"> {/* Centering div */}
+      <div className="flex justify-center py-6">
         <img
           src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6aef7/67093575f256069376139ec6_logo-white.svg"
           alt="Logo"
-          className="h-28 w-28"
+          className="h-16 w-16 md:h-28 md:w-28"
         />
       </div>
 
-      {/* Navigation */}
-      <div className="flex justify-center space-x-4 py-6">
-        {["Home", "Studio", "Work", "Plans", "Blog", "Contact"].map((item) => (
-          <button
-            key={item}
-            className="bg-white/10  px-6 py-3 text-lg hover:bg-white/20 transition"
-          >
-            {item}
-          </button>
-        ))}
+      {/* Responsive Navigation */}
+      <div className="py-6 px-6">
+        <div className="hidden md:flex justify-center space-x-4">
+          {navItems.map(({ path, label }, index) => (
+            <Link key={index} to={path} className={getLinkClass(path)}>
+              {label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Mobile View: 2 Rows, 3 Columns */}
+        <div className="grid grid-cols-2 gap-4 md:hidden">
+          {navItems.map(({ path, label }, index) => (
+            <Link key={index} to={path} className={getLinkClass(path)}>
+              {label}
+            </Link>
+          ))}
+        </div>
       </div>
 
       {/* Footer */}
-      <footer className="text-center text-gray-400 text-sm py-4 cursor-pointer" onClick={scrollToTop}>
+      <footer
+        className="text-center text-gray-400 text-sm py-4 cursor-pointer"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
         <p className="flex justify-center items-center space-x-2">
           <span>BACK TO THE TOP</span> <FaArrowUp />
         </p>
-        <p className="mt-2">COPYRIGHT © UPS — POWERED BY WEBFLOW STYLE GUIDE LICENSING</p>
+        <p className="mt-2">
+          COPYRIGHT © UPS — POWERED BY WEBFLOW STYLE GUIDE LICENSING
+        </p>
       </footer>
     </div>
   );

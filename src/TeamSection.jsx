@@ -30,7 +30,8 @@ const TeamSection = () => {
 
   return (
     <div className="bg-black text-white w-screen min-h-screen py-16">
-      <h1 className="text-[10rem] font-bold mt-15 mb-12 text-center">
+      {/* Responsive Title */}
+      <h1 className="text-center font-bold mt-15 mb-12 text-4xl md:text-6xl lg:text-[10rem]">
         THE TEAM
       </h1>
 

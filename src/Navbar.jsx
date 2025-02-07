@@ -75,9 +75,9 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Full-Screen Mobile Menu Overlay */}
+      {/* Mobile Menu - Reduced Height & Left Aligned */}
       {isOpen && (
-        <div className="fixed top-0 left-0 w-full h-[80vh] bg-black/90 text-white flex flex-col items-center justify-center space-y-6 z-50">
+        <div className="fixed top-0 left-0 w-full h-[40vh] bg-black/90 text-white flex flex-col items-start px-8 py-6 z-50 transition-all duration-300">
           {/* Close Button - Positioned at the top-right */}
           <button
             onClick={toggleMenu}
@@ -86,11 +86,22 @@ const Navbar = () => {
             <FiX />
           </button>
 
-          <Link to="/" className="text-white font-semibold text-xl" onClick={toggleMenu}>Home</Link>
-          <Link to="/studio" className="text-white font-semibold text-xl" onClick={toggleMenu}>Studio</Link>
-          <Link to="/work" className="text-white font-semibold text-xl" onClick={toggleMenu}>Work</Link>
-          <Link to="/blog" className="text-white font-semibold text-xl" onClick={toggleMenu}>Blog</Link>
-          <Link to="/contact" className="text-white font-semibold text-xl" onClick={toggleMenu}>Contact</Link>
+          {[
+            { name: "Home", path: "/" },
+            { name: "Studio", path: "/studio" },
+            { name: "Work", path: "/work" },
+            { name: "Blog", path: "/blog" },
+            { name: "Contact", path: "/contact" },
+          ].map((item, index) => (
+            <Link
+              key={index}
+              to={item.path}
+              className="w-full text-left text-white font-semibold text-xl px-4 py-2 transition-all duration-300 hover:bg-white/20 hover:translate-x-2"
+              onClick={toggleMenu}
+            >
+              {item.name}
+            </Link>
+          ))}
         </div>
       )}
     </div>

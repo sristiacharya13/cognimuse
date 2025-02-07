@@ -16,7 +16,7 @@ const ContactForm = () => {
   return (
     <>
       {/* Contact Header */}
-      <div className="flex items-center justify-center min-h-[85vh] bg-black">
+      <div className="flex items-center justify-center min-h-[90vh] bg-black">
         <span className="text-[15vw] font-bold text-white uppercase leading-none">
           CONTACT
         </span>

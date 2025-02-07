@@ -16,15 +16,18 @@ const Works = () => {
       <Navbar />
       
       {/* Header Section */}
-      <div className="flex items-center justify-center min-h-[85vh] bg-black">
-        <span className="text-[15vw] font-bold text-white uppercase leading-none">
-          WORKS<span className="text-[4rem] align-super ml-2">‘19-24</span>
+      <div className="flex items-center justify-center min-h-[85vh] bg-black px-4">
+        <span className="font-bold text-white uppercase leading-none text-6xl sm:text-8xl md:text-[10vw] lg:text-[12vw]">
+          WORKS
+          <span className="text-xl sm:text-3xl md:text-4xl lg:text-5xl align-super ml-2">
+            ‘19-24
+          </span>
         </span>
       </div>
 
       {/* Image Grid Section */}
       <div className="w-full bg-black text-white py-12">
-        <div className="grid grid-cols-2 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
           {imageUrls.map((url, index) => (
             <div key={index} className="overflow-hidden">
               <img

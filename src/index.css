@@ -73,3 +73,15 @@
 .cube-right  { transform: rotateY(90deg) translateZ(150px); }
 .cube-top    { transform: rotateX(90deg) translateZ(150px); }
 .cube-bottom { transform: rotateX(-90deg) translateZ(150px); }
+
+@keyframes float {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

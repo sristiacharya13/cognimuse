@@ -12,6 +12,7 @@ import Blog from "./Blog"
 import ContactForm from "./ContactForm"
 import Hero from "./Hero"
 import Stdio from "./Stdio"
+import FlipBook from "./FlipBook";
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
               <Stdio/>
               <TeamSection/>
               <About/>
+              <FlipBook/>
               <Services/>
               <Contact/>
             </>

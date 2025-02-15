@@ -102,7 +102,7 @@ const Cards = () => {
                 <button className="mt-12 px-6 py-3 text-white font-semibold relative overflow-hidden hover:text-white transition-colors 
                     after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white 
                     hover:after:w-full after:transition-all after:duration-300">
-                    MORE ABOUT   US
+                    MORE ABOUT US
                 </button>
                 </Link>
             </div>

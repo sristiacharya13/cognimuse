@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import * as HoverCard from '@radix-ui/react-hover-card';
 import { Link, useLocation } from "react-router-dom";
 
 const Cards = () => {
@@ -107,7 +106,7 @@ const Cards = () => {
                 </Link>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-16 w-full max-w-5xl mt-24 mb-12">
+            {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-16 w-full max-w-5xl mt-24 mb-12">
                 {logos.map((logo) => (
                     <HoverCard.Root key={logo.id}>
                         <HoverCard.Trigger asChild>
@@ -141,7 +140,7 @@ const Cards = () => {
                         </HoverCard.Portal>
                     </HoverCard.Root>
                 ))}
-            </div>
+            </div> */}
         </div>
     );
 };

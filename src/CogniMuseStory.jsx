@@ -6,7 +6,7 @@ import faviconImg from './assets/favicon.png';
 import section2Img from './assets/favicon.png';
 import section3Img from './assets/favicon.png';
 
-const CogniMuseStory = () => {
+const CognimuseStory = () => {
   const [activeSection, setActiveSection] = useState(null);
   const { scrollYProgress } = useScroll();
   const pathRef = useRef(null);
@@ -85,4 +85,4 @@ const CogniMuseStory = () => {
   );
 };
 
-export default CogniMuseStory;
+export default CognimuseStory;

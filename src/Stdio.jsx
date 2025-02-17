@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import CogniMuseStory from "./CognimuseStory";
 import CognimuseStory from "./CognimuseStory";
 
 const Stdio = () => {

@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import CognimuseStory from "./CognimuseStory";
 const Stdio = () => {
   return (
     <>
@@ -55,6 +56,7 @@ const Stdio = () => {
         </p>
       </div>
     </div>
+    <CognimuseStory/>
     </>
   );
 };

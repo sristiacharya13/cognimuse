@@ -53,7 +53,7 @@ const Contact = () => {
                   Contact Us
                 </span>
                 <img
-                  src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6aef7/67093575f256069376139ec6_logo-white.svg"
+                  src="https://cognimuse.online/_next/static/media/Muse.675f37a8.svg"
                   alt="Logo"
                   className="h-20 w-20 md:h-48 md:w-48"
                 />
@@ -82,7 +82,7 @@ const Contact = () => {
       {/* Logo Above Navigation */}
       <div className="flex justify-center py-6">
         <img
-          src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6aef7/67093575f256069376139ec6_logo-white.svg"
+          src="https://cognimuse.online/_next/static/media/Muse.675f37a8.svg"
           alt="Logo"
           className="h-16 w-16 md:h-28 md:w-28"
         />
@@ -117,7 +117,7 @@ const Contact = () => {
           <span>BACK TO THE TOP</span> <FaArrowUp />
         </p>
         <p className="mt-2">
-          COPYRIGHT © UPS — POWERED BY WEBFLOW STYLE GUIDE LICENSING
+            2025. All rights reserved by cognimuse.com
         </p>
       </footer>
 

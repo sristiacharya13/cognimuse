@@ -1,8 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
+import CogniMuseStory from "./CognimuseStory";
 
 const Stdio = () => {
   return (
+    <>
     <div className="flex flex-col items-center justify-center w-full min-h-screen bg-black">
       <motion.div
         className="relative w-[450px] h-[400px]"
@@ -31,8 +33,11 @@ const Stdio = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="mt-4 absolute bottom-8 left-2 text-8xl font-bold text-black">
+            {/* <div className="mt-4 absolute bottom-8 left-2 text-8xl font-bold text-black">
               ABOUT <br /> STUDIO&copy;
+            </div> */}
+            <div className="mt-4 absolute bottom-8 left-2 text-6xl font-bold text-black">
+              ABOUT <br /> COGNIMUSE&copy;
             </div>
           </div>
         ))}
@@ -52,6 +57,8 @@ const Stdio = () => {
         </p>
       </div>
     </div>
+    <CogniMuseStory/>
+    </>
   );
 };
 

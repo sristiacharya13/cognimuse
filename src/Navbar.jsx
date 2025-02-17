@@ -36,8 +36,8 @@ const Navbar = () => {
           {/* Logo - Centered in Desktop, Left in Mobile */}
           <div className="md:absolute md:left-1/2 md:transform md:-translate-x-1/2">
             <img
-              src="https://cdn.prod.website-files.com/67092b02e0a47e061ff6aef7/67093575f256069376139ec6_logo-white.svg"
-              alt="U Digital Studio Logo"
+              src="https://cognimuse.online/_next/static/media/Muse.675f37a8.svg"
+              alt="Cognimuse Logo"
               className="h-10 md:h-12"
             />
           </div>

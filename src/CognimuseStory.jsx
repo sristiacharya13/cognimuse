@@ -299,32 +299,37 @@
 // };
 
 // export default CognimuseStory;
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const steps = [
   {
     title: "Who are we?",
-    description:
-      "CogniMuse is a software development company dedicated to accelerating the success of early-stage startups and entrepreneurs by saving them time, money, and energy.",
-    media: "https://cdn.prod.website-files.com/67092b02e0a47e061ff6af16/670e3cd25ca07a1862c5dec1_work-7.avif",
+    description: (
+      <>
+        CogniMuse is a software development company dedicated to accelerating the success of
+        <br />
+        early-stage startups and entrepreneurs by saving them time, money, and energy.
+      </>
+    ),
+    image: "https://cdn.prod.website-files.com/67092b02e0a47e061ff6af16/670d2e05a810006162dcefd4_work-2.avif",
   },
   {
     title: "What do we do?",
-    description:
-      "We help early-stage startups and entrepreneurs build and launch their MVP in 2-4 weeks.",
-    media: "https://cdn.prod.website-files.com/67092b02e0a47e061ff6af16/670e3547c9cec6488b67c054_work-5.avif",
+    description: "We help early-stage startups and entrepreneurs build and launch their MVP in 2-4 weeks.",
+    image: "https://cdn.prod.website-files.com/67092b02e0a47e061ff6af16/670e353d429c71c439c27c38_work-4.avif",
   },
   {
     title: "What do we offer?",
-    description:
-      "We provide comprehensive support for MVP development, ensuring fast delivery without compromising on quality.",
-    media: "https://cognimuse.com/services/whisperify.mp4",
+    description: "We provide comprehensive support for MVP development, ensuring fast delivery without compromising on quality.",
+    image: "https://cdn.prod.website-files.com/67092b02e0a47e061ff6af16/670e3547c9cec6488b67c054_work-5.avif",
   },
 ];
 
 export default function CognimuseStory() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isFixed, setIsFixed] = useState(true);
+  const olRef = useRef(null);
+  const [olHeight, setOlHeight] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -339,75 +344,63 @@ export default function CognimuseStory() {
       );
       setCurrentStep(stepIndex);
 
-      // Unfix the component when gradient reaches 100%
-      setIsFixed(scrollPosition < totalScrollHeight);
+      // Unfix the component when progress reaches 100%
+      if (scrollPosition >= totalScrollHeight) {
+        setIsFixed(false);
+      } else {
+        setIsFixed(true);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Dynamic gradient height (1/3 for each step)
-  const gradientHeight = ((currentStep + 1) / steps.length) * 100;
+  useEffect(() => {
+    if (olRef.current) {
+      setOlHeight(olRef.current.scrollHeight);
+    }
+  }, [steps]);
+
+  // Dynamic progress bar height
+  const progressBarHeight = ((currentStep + 1) / steps.length) * 100;
 
   return (
-    <div className="bg-black text-white w-screen min-h-screen">
+    <div className="bg-black text-white min-h-screen">
       <div
         className={`flex items-center justify-between p-10 ${
           isFixed ? "fixed" : "relative"
         } top-0 left-0 w-full h-screen`}
       >
-        <ol className="relative flex flex-col space-y-16 ml-8">
+        <ol ref={olRef} className="relative flex flex-col space-y-16 ml-8">
           {steps.map((step, index) => (
             <li
               key={index}
-              className={`transition-all duration-[1200ms] ease-in-out transform ${
-                currentStep >= index
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
-              } px-10`}
+              className={`transition-opacity duration-700 px-10 ease-in-out ${
+                currentStep >= index ? "opacity-100" : "opacity-0"
+              }`}
             >
               <h3 className="text-5xl font-extrabold">{step.title}</h3>
               <p className="text-2xl mt-4">{step.description}</p>
             </li>
           ))}
-
-          {/* Dynamic Gradient Bar */}
-          <div className="absolute left-0 top-0 h-full w-2.5">
-            <div
-              className="bg-gray-600 absolute inset-0"
-              style={{ height: "100%" }}
-            />
-            <div
-              className="bg-lime-500 transition-all duration-1000"
-              style={{ height: `${Math.max(5, gradientHeight)}%` }}
-            />
-          </div>
         </ol>
 
-        {/* Media Section */}
-        <div
-          className={`relative w-96 h-96 transition-opacity duration-[1200ms] ease-in-out transform ${
-            currentStep >= 0 ? "opacity-100 scale-100" : "opacity-0 scale-95"
-          }`}
-        >
-          {steps[currentStep].media.endsWith(".mp4") ? (
-            <video
-              key={steps[currentStep].media} // Ensure video reloads on step change
-              className="absolute inset-0 w-full h-full object-cover"
-              autoPlay
-              loop
-              muted
-            >
-              <source src={steps[currentStep].media} type="video/mp4" />
-            </video>
-          ) : (
-            <img
-              src={steps[currentStep].media}
-              alt={steps[currentStep].title}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          )}
+        {/* Vertical Progress Bar with Left Spacing */}
+        <div className="absolute left-13" style={{ height: `${olHeight}px` }}>
+          <div
+            className="bg-lime-500 transition-all duration-500 w-2"
+            style={{ height: `${progressBarHeight}%` }}
+          />
+        </div>
+
+        {/* Image Display */}
+        <div className="relative w-96 h-96 right-13">
+          <img
+            src={steps[currentStep].image}
+            alt={steps[currentStep].title}
+            className="absolute inset-0 w-full h-full object-cover rounded-xl shadow-2xl"
+          />
         </div>
       </div>
     </div>

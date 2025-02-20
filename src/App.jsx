@@ -91,10 +91,10 @@ import Navbar from "./Navbar"
 import Works from "./Works"
 import Blog from "./Blog"
 import ContactForm from "./ContactForm"
-import FlipBook from "./FlipBook";
 import Parallax from "./Parallax"
-import CognimuseStory from "./CognimuseStory"
 import Stdio from "./Stdio"
+import CognimuseStory from "./CognimuseStory"
+import FlipBook from "./FlipBook"
 
 function App() {
 

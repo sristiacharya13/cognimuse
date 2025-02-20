@@ -300,6 +300,7 @@
 
 // export default CognimuseStory;
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 const steps = [
   {
@@ -374,32 +375,37 @@ export default function CognimuseStory() {
       >
         <ol ref={olRef} className="relative flex flex-col space-y-16 ml-8">
           {steps.map((step, index) => (
-            <li
+            <motion.li
               key={index}
-              className={`transition-opacity duration-700 px-10 ease-in-out ${
-                currentStep >= index ? "opacity-100" : "opacity-0"
-              }`}
+              initial={{ opacity: 0, y: 50 }}
+              animate={currentStep >= index ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+              className="px-10"
             >
               <h3 className="text-5xl font-extrabold">{step.title}</h3>
               <p className="text-2xl mt-4">{step.description}</p>
-            </li>
+            </motion.li>
           ))}
         </ol>
 
         {/* Vertical Progress Bar with Left Spacing */}
         <div className="absolute left-13" style={{ height: `${olHeight}px` }}>
           <div
-            className="bg-lime-500 transition-all duration-500 w-2"
+            className="bg-lime-300 transition-all duration-500 w-2"
             style={{ height: `${progressBarHeight}%` }}
           />
         </div>
 
         {/* Image Display */}
         <div className="relative w-96 h-96 right-13">
-          <img
+          <motion.img
+            key={steps[currentStep].image}
             src={steps[currentStep].image}
             alt={steps[currentStep].title}
-            className="absolute inset-0 w-full h-full object-cover rounded-xl shadow-2xl"
+            initial={{ scale: 1 }}
+            animate={{ scale: 1.1 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="absolute inset-0 w-full h-full object-cover shadow-2xl"
           />
         </div>
       </div>

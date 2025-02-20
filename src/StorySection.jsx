@@ -25,7 +25,7 @@ const StorySection = ({ id, title, content, position, setActiveSection, image, u
       transition={{ duration: 1 }}
       className="relative flex items-center w-full min-h-screen"
     >
-      <motion.div
+      {/* <motion.div
         style={{
           position: 'absolute',
           width: '264px',
@@ -40,7 +40,7 @@ const StorySection = ({ id, title, content, position, setActiveSection, image, u
           opacity: inView ? 1 : 0,
           transition: 'opacity 1s ease, transform 1s ease',
         }}
-      />
+      /> */}
 
       <div
         className={`max-w-xl p-8 text-white ${position === 'left' ? 'ml-auto' : 'mr-auto'} text-left`}

@@ -56,7 +56,6 @@ const Stdio = () => {
         </p>
       </div>
     </div>
-    <CognimuseStory/>
     </>
   );
 };

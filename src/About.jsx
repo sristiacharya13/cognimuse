@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FiX } from "react-icons/fi";
-import Cards from "./Cards";
+import Studio from "./Studio"
 import CalendlyEmbed from "./CalendlyEmbed";
 
 const About = () => {
@@ -68,7 +68,7 @@ const About = () => {
         </div>
       )}
 
-      <Cards/>
+      <Studio/>
     </div>
     </>
   );

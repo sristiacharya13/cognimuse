@@ -88,13 +88,21 @@ import { Routes,Route } from "react-router-dom"
 import Contact from "./Contact"
 import TeamSection from "./TeamSection"
 import Navbar from "./Navbar"
-import Works from "./Works"
+import WorksPage from "./WorksPage"
 import Blog from "./Blog"
 import ContactForm from "./ContactForm"
-import Parallax from "./Parallax"
+import Hero from "./Hero"
 import Stdio from "./Stdio"
 import CognimuseStory from "./CognimuseStory"
 import FlipBook from "./FlipBook"
+import About from "./About"
+import Works from "./Works"
+import VideoSection from "./VideoSection"
+import Services from "./Services"
+import Studio1 from "./Studio1"
+import TestimonialsSection from "./TestimonialsSection"
+import LoadingPage from "./LoadingPage"
+import Parallax from "./Parallax"
 
 function App() {
 
@@ -105,8 +113,13 @@ function App() {
           path="/"
           element={
             <>
-              <Navbar/>
               <Parallax/>
+              <About/>
+              <WorksPage/>
+              <Services/>
+              <VideoSection/>
+              <TestimonialsSection/>
+              <Contact/>
             </>
           }
         />
@@ -114,11 +127,10 @@ function App() {
           path="/studio"
           element={
             <>
-              <Navbar/>
               <Stdio/>
               <CognimuseStory/>
               <FlipBook/>
-              <TeamSection/>
+              <Studio1/>
               <Contact/>
             </>
           }

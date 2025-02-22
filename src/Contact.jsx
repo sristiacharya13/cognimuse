@@ -17,10 +17,10 @@ const Contact = () => {
 
   const navItems = [
     { path: "/", label: "Home" },
-    { path: "/studio", label: "Studio" },
+    { path: "/studio", label: "About" },
     { path: "/work", label: "Work" },
-    { path: "/plans", label: "Plans" },
-    { path: "/blog", label: "Blog" },
+    // { path: "/plans", label: "Plans" },
+    // { path: "/blog", label: "Blog" },
     { path: "/contact", label: "Contact" },
   ];
 
@@ -55,7 +55,7 @@ const Contact = () => {
                 <img
                   src="https://cognimuse.online/_next/static/media/Muse.675f37a8.svg"
                   alt="Logo"
-                  className="h-20 w-20 md:h-48 md:w-48"
+                  className="h-15 w-15 md:h-35 md:w-35"
                 />
                 <span className="text-[12vw] font-bold uppercase leading-none">
                   Let's Talk&nbsp;
@@ -84,7 +84,7 @@ const Contact = () => {
         <img
           src="https://cognimuse.online/_next/static/media/Muse.675f37a8.svg"
           alt="Logo"
-          className="h-16 w-16 md:h-28 md:w-28"
+          className="h-12 w-12 md:h-20 md:w-20"
         />
       </div>
 

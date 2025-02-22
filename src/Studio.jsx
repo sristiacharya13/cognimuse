@@ -1,39 +1,90 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 
 const Studio = () => {
+  // State for randomized numbers
+  const [numbers, setNumbers] = useState({
+    feedback: Math.floor(Math.random() * 1000),
+    experience: Math.floor(Math.random() * 20),
+    projects: Math.floor(Math.random() * 500),
+  });
+
+  useEffect(() => {
+    let count = 0;
+    
+    // Faster randomization every 50ms
+    const interval = setInterval(() => {
+      setNumbers({
+        feedback: Math.floor(Math.random() * 999) + 1, // 1 - 999
+        experience: Math.floor(Math.random() * 15) + 1, // 1 - 15
+        projects: Math.floor(Math.random() * 300) + 50, // 50 - 300
+      });
+
+      count++;
+
+      // Stop randomization after 1.5 seconds (faster effect)
+      if (count > 30) {
+        clearInterval(interval);
+        setNumbers({
+          feedback: 100, // Will get % superscript
+          experience: 5,  // Will get +
+          projects: 174,  // Will get +
+        });
+      }
+    }, 50); // Faster transition every 50ms
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="bg-black text-white min-h-screen flex flex-col items-center text-center px-6">
-      {/* Text Content */}
-      <div className="mt-16 md:mt-24 w-full max-w-3xl">
-        <p className="text-6xl md:text-4xl font-large"> {/* Increased text size */}
-          Ups™ Founded in 2019, this agency focuses on building, launching, and
-          revitalizing brands.
-        </p>
+      {/* Animated Text Content */}
+      <motion.div 
+        className="mt-10 md:mt-8 w-full max-w-3xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
+        <motion.p 
+          className="text-4xl md:text-4xl font-large"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.3 }}
+        >
+          CogniMuse™ – Founded to empower early-stage startups, we specialize in building, launching, and accelerating MVPs
+        </motion.p>
 
-        {/* Stats Section (Static) */}
+        {/* Stats Section with Faster Random Number Effect */}
         <div className="mt-12 flex flex-col md:flex-row justify-around items-center">
-          <div>
-            <p className="text-6xl md:text-8xl font-bold leading-none"> {/* Increased text size */}
-              100<sup className="text-gray-400">%</sup> {/* Superscript and gray color */}
-            </p>
-            <p className="text-sm md:text-base mt-2">positive feedback</p>
-          </div>
-          <div>
-            <p className="text-6xl md:text-8xl font-bold leading-none"> {/* Increased text size */}
-              15<sup className="text-gray-400">+</sup> {/* Superscript and gray color */}
-            </p>
-            <p className="text-sm md:text-base mt-2">years experience</p>
-          </div>
-          <div>
-            <p className="text-6xl md:text-8xl font-bold leading-none"> {/* Increased text size */}
-              174<sup className="text-gray-400">+</sup> {/* Superscript and gray color */}
-            </p>
-            <p className="text-sm md:text-base mt-2">projects done</p>
-          </div>
+          {[
+            { label: "positive feedback", value: numbers.feedback, suffix: "%" },
+            { label: "years experience", value: numbers.experience, suffix: "+" },
+            { label: "projects done", value: numbers.projects, suffix: "+" },
+          ].map((stat, index) => (
+            <motion.div
+              key={index}
+              className="text-center"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.5 + index * 0.2 }}
+            >
+              <p className="text-6xl md:text-8xl font-bold leading-none">
+                {stat.value}
+                <sup className="text-gray-400">{stat.suffix}</sup>
+              </p>
+              <p className="text-sm md:text-base mt-2">{stat.label}</p>
+            </motion.div>
+          ))}
         </div>
-      </div>
-
-      {/* ... (Rest of your component: More About Us, images, etc.) */}
+      </motion.div>
+      <Link to="/studio">
+                <button className="mt-12 px-6 py-3 text-white font-semibold relative overflow-hidden hover:text-white transition-colors 
+                    after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white 
+                    hover:after:w-full after:transition-all after:duration-300">
+                    MORE ABOUT US
+                </button>
+      </Link>
     </div>
   );
 };

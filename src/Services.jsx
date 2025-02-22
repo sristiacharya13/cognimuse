@@ -69,11 +69,14 @@ const Services = () => {
       {/* Title */}
       <h1
         className={`text-center font-bold ${
-          isMobile ? "text-4xl mb-6" : "text-[10rem] mb-12"
+          isMobile ? "text-4xl mb-6" : "text-[10rem] mb-7"
         }`}
       >
         OUR WORKS
       </h1>
+      <p className="text-lime-300 text-center text-xl italic mb-8">
+        We Innovate, Iterate & Improvise
+      </p>
 
       {/* Mobile View */}
       {isMobile ? (
@@ -104,7 +107,7 @@ const Services = () => {
                 <h3 className="text-2xl text-gray-400 mt-2">
                   {selectedService.id}
                 </h3>
-                <h3 className="border border-gray-400 inline-block px-4 py-2 text-lg mt-4">
+                <h3 className="border border-lime-300 inline-block px-4 py-2 text-lg mt-4">
                   {selectedService.para}
                 </h3>
                 <img

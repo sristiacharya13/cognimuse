@@ -1,19 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight,ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 
 const FlipBook = () => {
   const [page, setPage] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  
-    useEffect(() => {
-      const handleResize = () => {
-        setIsMobile(window.innerWidth < 768);
-      };
-  
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, []);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [titleVisible, setTitleVisible] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTitleVisible(true);
+    }, 3000); // 3 seconds delay
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const pages = [
     {
@@ -25,7 +34,10 @@ const FlipBook = () => {
           <p className="text-gray-600 text-lg mt-6 text-center">
             Visualize before you build. Impress investors. Gather feedback.
           </p>
-          <a href="#" className="mt-8 text-black font-semibold text-lg border-b-2 border-black flex items-center gap-1">
+          <a
+            href="#"
+            className="mt-8 text-black font-semibold text-lg border-b-2 border-black flex items-center gap-1"
+          >
             Build Now <ArrowUpRight size={20} />
           </a>
         </div>
@@ -49,9 +61,13 @@ const FlipBook = () => {
             MVP <br /> DEVELOPMENT
           </h2>
           <p className="text-gray-600 text-lg mt-6 text-center">
-            Launch an optimal, impactful version of your idea. Test. Learn. Repeat.
+            Launch an optimal, impactful version of your idea. Test. Learn.
+            Repeat.
           </p>
-          <a href="#" className="mt-8 text-black font-semibold text-lg border-b-2 border-black flex items-center gap-1">
+          <a
+            href="#"
+            className="mt-8 text-black font-semibold text-lg border-b-2 border-black flex items-center gap-1"
+          >
             Build Now <ArrowUpRight size={20} />
           </a>
         </div>
@@ -89,12 +105,19 @@ const FlipBook = () => {
   return (
     <div className="bg-black py-16 px-6 lg:px-20 flex flex-col items-center">
       <div className="bg-black text-white p-2 flex flex-col items-center">
-      <h1 className={`text-center font-bold ${isMobile ? "text-4xl mb-3" : "text-[10rem] mb-0"}`}>
-        OUR SERVICES
-      </h1>
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={titleVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8 }}
+          className={`text-center font-bold ${
+            isMobile ? "text-4xl mb-3" : "text-[10rem] mb-0"
+          }`}
+        >
+          OUR SERVICES
+        </motion.h1>
       </div>
 
-      <p className="text-gray-600 text-center italic mb-8">
+      <p className="text-lime-300 text-center text-xl italic mb-8">
         We build Prototypes and MVPs in record time
       </p>
 
@@ -141,7 +164,7 @@ const FlipBook = () => {
 
         <button
           onClick={() => setPage((prev) => Math.min(prev + 1, pages.length - 1))}
-          className="px-4 py-2 bg-lime-500 text-black disabled:opacity-50 flex items-center justify-center"
+          className="px-4 py-2 bg-lime-300 text-black disabled:opacity-50 flex items-center justify-center"
           disabled={page === pages.length - 1}
         >
           <ArrowRight size={24} />
@@ -151,4 +174,3 @@ const FlipBook = () => {
   );
 };
 export default FlipBook;
-

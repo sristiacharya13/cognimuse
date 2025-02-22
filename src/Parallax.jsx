@@ -230,41 +230,32 @@
 // };
 
 // export default Parallax;
-import React, { useState, useEffect } from "react";
-import LoadingPage from "./LoadingPage";
-import About from "./About";
-import WorksPage from "./WorksPage";
-import Services from "./Services";
-import VideoSection from "./VideoSection";
-import TestimonialsSection from "./TestimonialsSection";
-import Contact from "./Contact";
-import Hero from "./Hero";
+import React from 'react';
+import LoadingPage from './LoadingPage';
+
+const images = [
+  "https://cdn.prod.website-files.com/67092b02e0a47e061ff6af16/670e3cd25ca07a1862c5dec1_work-7.avif",
+  "https://cdn.prod.website-files.com/67092b02e0a47e061ff6af16/670d35a62ea6281ea715f7bd_work-1.avif",
+  "https://cdn.prod.website-files.com/67092b02e0a47e061ff6af16/670e3a80e86a23be97a92b9c_work-6.avif",
+];
 
 const Parallax = () => {
-  const [loadingFinished, setLoadingFinished] = useState(false);
-
-  useEffect(() => {
-    // Wait for the loading sequence to finish before showing the main content
-    const timer = setTimeout(() => setLoadingFinished(true), 9000); // Adjust duration based on LoadingPage timings
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <>
-      {!loadingFinished ? (
-        <LoadingPage />
-      ) : (
-        <>
-          <Hero/>
-          <About />
-          <WorksPage />
-          <Services />
-          <VideoSection />
-          <TestimonialsSection />
-          <Contact />
-        </>
-      )}
+    {/* <div
+      className="min-h-screen flex justify-center items-center bg-fixed bg-center bg-cover bg-black"
+    >
+      <h1 className="font-black text-6xl text-white">CogniMuse</h1>
+    </div>
+
+    
+    <div className='p-0 m-0'>
+        <About/>
+    </div> */}
+
+    <div className='min-h-screen bg-fixed bg-center bg-no-repeat bg-cover'>
+      <LoadingPage/>   
+    </div>
     </>
   );
 };

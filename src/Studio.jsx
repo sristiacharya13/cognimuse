@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Studio = () => {
   // State for randomized numbers
@@ -52,7 +52,7 @@ const Studio = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, delay: 0.3 }}
         >
-          CogniMuse™ – Founded to empower early-stage startups, we specialize in building, launching, and accelerating MVPs
+          <span className="text-lime-300">CogniMuse</span> – Founded to empower early-stage startups, we specialize in building, launching, and accelerating <span className="text-lime-300">MVPs</span>
         </motion.p>
 
         {/* Stats Section with Faster Random Number Effect */}
@@ -71,7 +71,7 @@ const Studio = () => {
             >
               <p className="text-6xl md:text-8xl font-bold leading-none">
                 {stat.value}
-                <sup className="text-gray-400">{stat.suffix}</sup>
+                <sup className="text-lime-300">{stat.suffix}</sup>
               </p>
               <p className="text-sm md:text-base mt-2">{stat.label}</p>
             </motion.div>
@@ -80,7 +80,7 @@ const Studio = () => {
       </motion.div>
       <Link to="/studio">
                 <button className="mt-12 px-6 py-3 text-white font-semibold relative overflow-hidden hover:text-white transition-colors 
-                    after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-white 
+                    after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-lime-300
                     hover:after:w-full after:transition-all after:duration-300">
                     MORE ABOUT US
                 </button>

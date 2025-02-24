@@ -64,72 +64,76 @@ const TestimonialsSection = () => {
   const cardContainerRef = useRef(null);
   const [angleY, setAngleY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isDragging) {
-        setAngleY((prev) => prev + 0.4);
-      }
-    }, 100);
-    return () => clearInterval(interval);
-  }, [isDragging]);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartX(e.clientX);
-    document.body.style.userSelect = "none";
-  };
-
-  const handleMouseMove = (e) => {
-    if (isDragging) {
-      const deltaX = (e.clientX - startX) * 0.2;
-      setAngleY((prev) => prev + deltaX);
-      setStartX(e.clientX);
+  useEffect(() => {
+    if (!isMobile) {
+      const interval = setInterval(() => {
+        if (!isDragging) {
+          setAngleY((prev) => prev + 0.4);
+        }
+      }, 100);
+      return () => clearInterval(interval);
     }
-  };
+  }, [isDragging, isMobile]);
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    document.body.style.userSelect = "auto";
-  };
+  useEffect(() => {
+    if (isMobile) {
+      let index = 0;
+      const interval = setInterval(() => {
+        if (cardContainerRef.current) {
+          index = (index + 1) % testimonials.length;
+          cardContainerRef.current.scrollTo({ left: index * 300, behavior: "smooth" });
+        }
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [isMobile]);
 
   return (
-    <div 
-      className="flex items-center justify-center h-screen overflow-hidden"
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
-      onTouchMove={(e) => handleMouseMove(e.touches[0])}
-      onTouchEnd={handleMouseUp}
-    >
-      <motion.div
-        ref={cardContainerRef}
-        className="relative w-[300px] h-[300px] cursor-grab active:cursor-grabbing"
-        style={{ transformStyle: "preserve-3d" }}
-        animate={{ rotateY: angleY, rotateX: -15 }}
-        transition={{ type: "spring", stiffness: 50 }}
-        onMouseDown={handleMouseDown}
-        onTouchStart={(e) => handleMouseDown(e.touches[0])}
-      >
-        {testimonials.map((testimonial, index) => (
+    <div className="flex items-center justify-center min-h-screen bg-black">
+      {isMobile ? (
+        <div ref={cardContainerRef} className="flex overflow-x-hidden w-full px-4 space-x-4 no-scrollbar mt-2 pb-6">
+          {testimonials.map((testimonial) => (
+            <div key={testimonial.id} className="w-[300px] flex-shrink-0 p-6 border-2 border-lime-300 rounded-xl bg-black bg-opacity-10 text-center mb-50 mt-0">
+              <img src={testimonial.clientImage} alt={testimonial.name} className="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-white" />
+              <p className="font-bold text-lg text-white">{testimonial.name}</p>
+              <p className="text-sm text-gray-300">{testimonial.company}</p>
+              <p className="text-sm italic text-gray-200">"{testimonial.review}"</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <motion.div
+          ref={cardContainerRef}
+          className="relative w-[400px] h-[400px] cursor-grab"
+          style={{ transformStyle: "preserve-3d" }}
+          animate={{ rotateY: angleY, rotateX: -15 }}
+          transition={{ type: "spring", stiffness: 50 }}
+        >
+          {testimonials.map((testimonial, index) => (
             <motion.div
-  key={testimonial.id}
-  className="absolute w-[250px] h-[250px] p-4 border-2 border-lime-300 rounded-lg backdrop-blur-lg bg-opacity-30 flex flex-col items-center text-center transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:shadow-blue-400"
-  style={{
-    transform: `rotateY(${(360 / testimonials.length) * index}deg) translateZ(330px)`,
-    background: "rgba(128, 128, 128, 0.3)",
-    borderColor: "rgb(128, 128, 128)"
-  }}
->
-
-            <img src={testimonial.clientImage} alt={testimonial.name} className="w-12 h-12 rounded-full mb-2" />
-            <p className="font-bold text-white">{testimonial.name}</p>
-            <p className="text-sm text-gray-300">{testimonial.company}</p>
-            <p className="text-xs italic text-gray-200">"{testimonial.review}"</p>
-          </motion.div>
-        ))}
-      </motion.div>
+              key={testimonial.id}
+              className="absolute w-[350px] h-[350px] p-6 border-2 border-lime-300 rounded-xl bg-black bg-opacity-10 text-center mt-10"
+              style={{ transform: `rotateY(${(360 / testimonials.length) * index}deg) translateZ(450px)` }}
+            >
+              <img src={testimonial.clientImage} alt={testimonial.name} className="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-lime-300" />
+              <p className="font-bold text-xl text-white">{testimonial.name}</p>
+              <p className="text-lg text-gray-300">{testimonial.company}</p>
+              <p className="text-base italic text-gray-200">"{testimonial.review}"</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      )}
     </div>
   );
 };

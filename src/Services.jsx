@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const Services = () => {
   const [selectedService, setSelectedService] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -64,14 +66,20 @@ const Services = () => {
     },
   ];
 
+  const handleNext = () => {
+    setSelectedIndex((prevIndex) => (prevIndex + 1) % services.length);
+  };
+
+  const handlePrevious = () => {
+    setSelectedIndex((prevIndex) => (prevIndex - 1 + services.length) % services.length);
+  };
+
+  const selectedMobileService = services[selectedIndex];
+
   return (
     <div className="bg-black min-h-screen text-white p-8 flex flex-col items-center">
       {/* Title */}
-      <h1
-        className={`text-center font-bold ${
-          isMobile ? "text-4xl mb-6" : "text-[10rem] mb-7"
-        }`}
-      >
+      <h1 className={`text-center font-bold ${isMobile ? "text-4xl mb-6" : "text-[10rem] mb-7"}`}>
         OUR WORKS
       </h1>
       <p className="text-lime-300 text-center text-xl italic mb-8">
@@ -80,21 +88,28 @@ const Services = () => {
 
       {/* Mobile View */}
       {isMobile ? (
-        <div className="flex flex-col items-center space-y-6">
-          {services.map((service) => (
-            <div key={service.id} className="text-center">
+        <div className="flex flex-col items-center w-full">
+          <div className="relative text-center w-full max-w-md">
+            <button className="absolute left-0 top-1/2 transform -translate-y-1/2 text-white text-2xl" onClick={handlePrevious}>
+              <FaArrowLeft />
+            </button>
               <img
-                alt={`${service.name} illustration`}
+                alt={`${services.name} illustration`}
                 loading="lazy"
                 className="cursor-pointer w-full max-w-md mx-auto animate-[float_3s_ease-in-out_infinite]"
-                src={service.image}
+                src={selectedMobileService.image}
+                style={{
+                  width:selectedMobileService.name==="Marble Note" ||selectedMobileService.name === "Aiyurveda"? "14rem": "100%",
+                  height:
+                        selectedMobileService.name === "Marble Note" ||selectedMobileService.name === "Aiyurveda"? "24rem": "auto",
+                }}
               />
-              <h2 className="text-xl font-semibold">{service.name}</h2>
-              <p className="text-gray-400 text-sm mt-2">
-                {service.description}
-              </p>
-            </div>
-          ))}
+            <button className="absolute right-0 top-1/2 transform -translate-y-1/2 text-white text-2xl" onClick={handleNext}>
+              <FaArrowRight />
+            </button>
+            <h2 className="text-xl font-semibold mt-4">{selectedMobileService.name}</h2>
+            <p className="text-gray-400 text-sm mt-2">{selectedMobileService.description}</p>
+          </div>
         </div>
       ) : (
         /* Desktop View */
@@ -104,12 +119,8 @@ const Services = () => {
             {selectedService && (
               <div className="relative text-center p-6">
                 <h1 className="text-5xl font-bold">{selectedService.name}</h1>
-                <h3 className="text-2xl text-gray-400 mt-2">
-                  {selectedService.id}
-                </h3>
-                <h3 className="border border-lime-300 inline-block px-4 py-2 text-lg mt-4">
-                  {selectedService.para}
-                </h3>
+                <h3 className="text-2xl text-gray-400 mt-2">{selectedService.id}</h3>
+                <h3 className="border border-lime-300 inline-block px-4 py-2 text-lg mt-4">{selectedService.para}</h3>
                 <img
                   key={selectedService.name} // This forces React to re-render the image
                   alt={`${selectedService.name} illustration`}
@@ -124,24 +135,21 @@ const Services = () => {
                     margin: "auto",
                   }}
                 />
-
-                <p className="text-gray-300 text-lg mt-6 text-justify">
-                  {selectedService.description}
-                </p>
+                <p className="text-gray-300 text-lg mt-6 text-justify">{selectedService.description}</p>
               </div>
             )}
           </div>
 
-          {/* Right Side: Service List (Aligned to the right) */}
+          {/* Right Side: Service List */}
           <div className="w-1/2 flex flex-col justify-end items-end">
-            {services.map((service) => (
+            {services.map((services) => (
               <div
-                key={service.id}
+                key={services.id}
                 className="border-t border-gray-800 py-8 w-full text-right group cursor-pointer"
-                onClick={() => setSelectedService(service)}
+                onClick={() => setSelectedService(services)}
               >
                 <h2 className="text-6xl font-bold transition-all transform hover:text-gray-400 hover:translate-x-2">
-                  {service.name}
+                  {services.name}
                 </h2>
               </div>
             ))}

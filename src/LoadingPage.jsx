@@ -1,56 +1,85 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Hero from "./Hero"; // Importing the Hero component
+import { Lightbulb, Flower,Paintbrush,EyeIcon } from "lucide-react"; // Importing icons
 
-const messages = [
+const texts = [
   { small: "Need an extended tech team?", large: "We're your crew" },
   { small: "No tech co-founder?", large: "We'll keep you moving" },
-  { small: "Running on strict deadline?", large: "We got you" },
+  { small: "Running on strict deadline?", large: "We got you" }, // Fixed text with symbols
 ];
 
-export default function LoadingPage() {
-  const [index, setIndex] = useState(0);
-  const [showHero, setShowHero] = useState(false);
+const symbols = [
+  { icon: <Lightbulb size={80} />, text: "Knowledge" },
+  { icon: <Flower size={80} />, text: "Self-Realization" },
+  { icon: <Paintbrush size={80} />, text: "Creativity" },
+  { icon: <EyeIcon size={80} />, text: "Spiritual Awakening" },
+];
+
+export default function LoadingPage({ onComplete }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [symbolIndex, setSymbolIndex] = useState(0);
+  const [showSymbols, setShowSymbols] = useState(false);
 
   useEffect(() => {
-    if (index < messages.length - 1) {
-      const interval = setInterval(() => {
-        setIndex((prevIndex) => prevIndex + 1);
-      }, 3000);
-      return () => clearInterval(interval);
-    } else {
-      setTimeout(() => setShowHero(true), 3000); // Show Hero after last message
+    const timer = setTimeout(() => {
+      if (currentIndex < texts.length - 1) {
+        setCurrentIndex((prev) => prev + 1);
+      } else {
+        setShowSymbols(true); // Start showing symbols after last text appears
+      }
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [currentIndex]);
+
+  useEffect(() => {
+    if (showSymbols) {
+      const symbolTimer = setTimeout(() => {
+        if (symbolIndex < symbols.length - 1) {
+          setSymbolIndex((prev) => prev + 1);
+        } else {
+          onComplete(); // Move to hero section after last symbol
+        }
+      }, 1150); // Symbols change every 1.5s
+
+      return () => clearTimeout(symbolTimer);
     }
-  }, [index]);
+  }, [symbolIndex, showSymbols, onComplete]);
 
   return (
-    <div>
-      {!showHero ? (
-        <div className="min-h-screen bg-fixed bg-center bg-no-repeat bg-cover flex items-center justify-center bg-black text-white">
-          <AnimatePresence mode="wait">
+    <div className="flex flex-col items-center justify-center h-screen bg-black text-white text-center">
+      <AnimatePresence mode="wait">
+        {!showSymbols ? (
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="text-center"
+          >
+            <p className="text-xl">{texts[currentIndex]?.small}</p>
+            <h1 className="text-5xl font-bold mt-2">{texts[currentIndex]?.large}</h1>
+          </motion.div>
+        ) : (
+          <div>
+            {/* <p className="text-xl">{texts[texts.length - 1].small}</p>
+            <h1 className="text-5xl font-bold mt-2">{texts[texts.length - 1].large}</h1> */}
+
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.8 }}
-              className="text-center"
+              key={symbolIndex}
+              initial={{ opacity: 0, rotate: 0, scale: 0.8 }}
+              animate={{ opacity: 1, rotate: 360, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.2 }}
+              transition={{ duration: 1, ease: "easeInOut" }}
+              className="flex flex-col items-center mt-6"
             >
-              <p className="text-lg mb-4">{messages[index].small}</p>
-              <h1 className="text-4xl font-bold">{messages[index].large}</h1>
+              {symbols[symbolIndex]?.icon}
+              
             </motion.div>
-          </AnimatePresence>
-        </div>
-      ) : (
-        <motion.div
-          initial={{ y: 500 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="min-h-screen bg-fixed bg-center bg-no-repeat bg-cover"
-        >
-          <Hero />
-        </motion.div>
-      )}
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

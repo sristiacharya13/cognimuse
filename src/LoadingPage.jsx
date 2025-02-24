@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lightbulb, Flower,Paintbrush,EyeIcon } from "lucide-react"; // Importing icons
-
+import { Lightbulb,Paintbrush,EyeIcon } from "lucide-react"; // Importing icons
 const texts = [
   { small: "Need an extended tech team?", large: "We're your crew" },
   { small: "No tech co-founder?", large: "We'll keep you moving" },
@@ -9,10 +8,10 @@ const texts = [
 ];
 
 const symbols = [
-  { icon: <Lightbulb size={80} />, text: "Knowledge" },
-  { icon: <Flower size={80} />, text: "Self-Realization" },
+  { icon: <Lightbulb size={80}/>, text: "Knowledge" },
+  { icon: <img src="src/assets/lotus.png" alt="self realization" className="w-25 h-25 filter invert brightness-200 hue-rotate-60" />, text: "Self-Realization" },
   { icon: <Paintbrush size={80} />, text: "Creativity" },
-  { icon: <EyeIcon size={80} />, text: "Spiritual Awakening" },
+  { icon: <img src="src/assets/mandala.png" alt="spirituality" className="w-25 h-25 filter invert brightness-200 hue-rotate-60" />, text: "Spirituality" },
 ];
 
 export default function LoadingPage({ onComplete }) {

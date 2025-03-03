@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lightbulb,Paintbrush,EyeIcon } from "lucide-react"; // Importing icons
+import { Lightbulb,Paintbrush} from "lucide-react"; // Importing icons
 const texts = [
   { small: "Need an extended tech team?", large: "We're your crew" },
   { small: "No tech co-founder?", large: "We'll keep you moving" },

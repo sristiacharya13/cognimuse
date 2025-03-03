@@ -1,144 +1,134 @@
-import React, { useEffect, useState } from "react";
-import { FaArrowUp } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { ArrowUpRight } from "lucide-react";
+import { FaLinkedin, FaMedium, FaBehance, FaPhone, FaEnvelope } from "react-icons/fa";
 
-const Contact = () => {
-  const location = useLocation();
+export default function ProjectInquiryForm() {
+  const [formData, setFormData] = useState({
+    service: "",
+    budget: "",
+    name: "",
+    email: "",
+    description: "",
+  });
 
-  // Scroll to top when route changes
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [location.pathname]);
-
-  const getLinkClass = (path) =>
-    location.pathname === path
-      ? "text-white font-semibold text-lg bg-white/20 px-3.5 py-2.5"
-      : "text-white/80 font-semibold text-lg bg-white/10 px-3.5 py-2.5 hover:bg-white/20 transition";
-
-  const navItems = [
-    { path: "/", label: "Home" },
-    { path: "/studio", label: "About" },
-    { path: "/work", label: "Work" },
-    // { path: "/plans", label: "Plans" },
-    // { path: "/blog", label: "Blog" },
-    { path: "/contact", label: "Contact" },
-  ];
-
-  // State for hover effect on marquee section only
-  const [isHoveringMarquee, setIsHoveringMarquee] = useState(false);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-
-  // Track cursor position
-  const handleMouseMove = (event) => {
-    setCursorPos({ x: event.clientX, y: event.clientY });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   return (
-    <div
-      className="bg-black text-white min-h-screen flex flex-col justify-between relative"
-      onMouseMove={handleMouseMove}
-    >
-      {/* Marquee Section */}
-      <div
-        className="overflow-hidden whitespace-nowrap py-6 mt-16"
-        onMouseEnter={() => setIsHoveringMarquee(true)}
-        onMouseLeave={() => setIsHoveringMarquee(false)}
-      >
-        <div className="animate-marquee flex space-x-10 items-center h-[250px]">
-          {Array(5)
-            .fill(0)
-            .map((_, index) => (
-              <div key={index} className="flex items-center space-x-10 h-full">
-                <span className="text-[12vw] font-bold uppercase leading-none">
-                  Contact Us
-                </span>
-                <img
-                  src="https://cognimuse.online/_next/static/media/Muse.675f37a8.svg"
-                  alt="Logo"
-                  className="h-15 w-15 md:h-35 md:w-35"
-                />
-                <span className="text-[12vw] font-bold uppercase leading-none">
-                  Let's Talk&nbsp;
-                </span>
-              </div>
-            ))}
+    <div className="bg-black text-white min-h-screen flex flex-col items-center justify-center p-10">
+      <div className="max-w-5xl w-full flex flex-col md:flex-row items-start gap-12">
+        {/* Left Side - "Have an idea?" with arrow icon */}
+        <div className="md:w-1/3 flex flex-col items-start">
+          <h2 className="text-xl font-semibold flex items-center gap-2">
+            Have an idea?
+          </h2>
+        </div>
+
+        {/* Right Side - Form */}
+        <div className="md:w-2/3">
+          <h2 className="text-4xl font-semibold mb-6">Tell us about your project</h2>
+
+          {/* Service Selection */}
+          <div className="mb-6">
+            <p className="text-lg mb-2">Service</p>
+            <div className="flex gap-4">
+              {["Design", "Development", "Other"].map((service) => (
+                <button
+                  key={service}
+                  className={`px-4 py-2 rounded-full border ${
+                    formData.service === service ? "bg-gray-700 border-gray-500" : "border-gray-500"
+                  }`}
+                  onClick={() => setFormData({ ...formData, service })}
+                >
+                  {service}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Budget Selection in INR */}
+          {/* <div className="mb-6">
+            <p className="text-lg mb-2">Budget in INR (₹)</p>
+            <div className="flex gap-4 flex-wrap">
+              {["₹1L-₹2L", "₹2L-₹5L", "₹5L-₹10L", "₹10L+", "Other"].map((budget) => (
+                <button
+                  key={budget}
+                  className={`px-4 py-2 rounded-full border ${
+                    formData.budget === budget ? "bg-gray-700 border-gray-500" : "border-gray-500"
+                  }`}
+                  onClick={() => setFormData({ ...formData, budget })}
+                >
+                  {budget}
+                </button>
+              ))}
+            </div>
+          </div> */}
+
+          {/* Input Fields */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              className="p-3 bg-transparent border-b border-gray-500 focus:outline-none w-full"
+              onChange={handleChange}
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="p-3 bg-transparent border-b border-gray-500 focus:outline-none w-full"
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Description Field */}
+          <textarea
+            name="description"
+            placeholder="Description"
+            className="w-full p-3 bg-transparent border-b border-gray-500 focus:outline-none mb-6"
+            rows="4"
+            onChange={handleChange}
+          ></textarea>
+
+          {/* Submit Button with Arrow Icon */}
+          <button className="px-6 py-3 bg-black border-2 text-2xl border-white text-white font-semibold rounded-full flex items-center gap-2 hover:bg-gray-300 transition">
+            Book a Meeting
+            <ArrowUpRight className="w-8 h-8 text-black text-2xl font-semibold bg-white rounded-full p-1" />
+          </button>
         </div>
       </div>
 
-      {/* Hover Effect (Only on Marquee Section) */}
-      {isHoveringMarquee && (
-        <div
-          className="fixed px-[0.3vw] py-[0.3vw] bg-black/70 text-white text-[1.3vw] font-normal rounded-md flex items-center pointer-events-none transition-transform duration-50"
-          style={{
-            left: `${cursorPos.x}px`,
-            top: `${cursorPos.y}px`,
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          Say Hello <span className="ml-1">😎</span>
-        </div>
-      )}
-
-      {/* Logo Above Navigation */}
-      <div className="flex justify-center py-6">
-        <img
-          src="https://cognimuse.online/_next/static/media/Muse.675f37a8.svg"
-          alt="Logo"
-          className="h-12 w-12 md:h-20 md:w-20"
-        />
-      </div>
-
-      {/* Responsive Navigation */}
-      <div className="py-6 px-6">
-        <div className="hidden md:flex justify-center space-x-4">
-          {navItems.map(({ path, label }, index) => (
-            <Link key={index} to={path} className={getLinkClass(path)}>
-              {label}
-            </Link>
-          ))}
-        </div>
-
-        {/* Mobile View: 2 Rows, 3 Columns */}
-        <div className="grid grid-cols-2 gap-4 md:hidden">
-          {navItems.map(({ path, label }, index) => (
-            <Link key={index} to={path} className={getLinkClass(path)}>
-              {label}
-            </Link>
-          ))}
+      {/* New Section with Logo and Icons */}
+      <div className="w-full max-w-5xl flex items-center justify-between pb-4 border-b border-gray-500 mb-8">
+        {/* Logo */}
+        <img src="https://cognimuse-main.web.app/images/cognimuse.png" alt="Logo" className="h-20 w-20" />
+        {/* Icons */}
+        <div className="flex gap-4 text-md">
+          <FaLinkedin className="cursor-pointer hover:text-gray-400" />
+          <FaMedium className="cursor-pointer hover:text-gray-400" />
+          <FaBehance className="cursor-pointer hover:text-gray-400" />
+          <FaPhone className="cursor-pointer hover:text-gray-400" />
+          <FaEnvelope className="cursor-pointer hover:text-gray-400" />
         </div>
       </div>
 
-      {/* Footer */}
-      <footer
-        className="text-center text-white-400 text-sm py-4 cursor-pointer"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      >
-        <p className="flex justify-center items-center space-x-2">
-          <span>BACK TO THE TOP</span> <FaArrowUp />
-        </p>
-        <p className="mt-2">
-            2025. All rights reserved by cognimuse.com
-        </p>
-      </footer>
-
-      {/* Styles */}
-      <style jsx>{`
-        @keyframes marquee {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-100%);
-          }
-        }
-        .animate-marquee {
-          display: flex;
-          width: max-content;
-          animation: marquee 300s linear infinite;
-        }
-      `}</style>
+      {/* Footer Section */}
+      <div className="w-full max-w-5xl flex flex-col md:flex-row items-center justify-between pb-0 text-center md:text-left">
+  <h2 className="text-sm font-semibold flex items-center gap-2 mb-4 md:mb-0">
+    2025. All rights reserved by cognimuse.design
+  </h2>
+  {/* Navigation Links */}
+  <div className="flex flex-wrap justify-center md:justify-end gap-4">
+    <a href="#" className="hover:text-gray-400">Home</a>
+    <a href="#" className="hover:text-gray-400">About</a>
+    <a href="#" className="hover:text-gray-400">Portfolio</a>
+    <a href="#" className="hover:text-gray-400">Work</a>
+    <a href="#" className="hover:text-gray-400">Contact</a>
+  </div>
+</div>
     </div>
   );
-};
-
-export default Contact;
+}

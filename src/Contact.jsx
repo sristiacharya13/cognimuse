@@ -1,134 +1,101 @@
-import { useState } from "react";
-import { ArrowUpRight } from "lucide-react";
-import { FaLinkedin, FaMedium, FaBehance, FaPhone, FaEnvelope } from "react-icons/fa";
+import React from "react";
 
-export default function ProjectInquiryForm() {
-  const [formData, setFormData] = useState({
-    service: "",
-    budget: "",
-    name: "",
-    email: "",
-    description: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
+const ContactForm = () => {
   return (
-    <div className="bg-black text-white min-h-screen flex flex-col items-center justify-center p-10">
-      <div className="max-w-5xl w-full flex flex-col md:flex-row items-start gap-12">
-        {/* Left Side - "Have an idea?" with arrow icon */}
-        <div className="md:w-1/3 flex flex-col items-start">
-          <h2 className="text-xl font-semibold flex items-center gap-2">
-            Have an idea?
-          </h2>
+    <div className="w-full min-h-screen flex flex-col md:flex-row justify-center md:justify-between items-center px-6 md:px-12 lg:px-20 py-12 bg-black">
+      {/* Left Side Content */}
+      <div className="md:w-1/2 mb-10 md:mb-0 font-[Inter] text-center md:text-left">
+        <div className="flex flex-col items-center md:items-start">
+          <h1 className="text-6xl md:text-8xl font-bold text-white">Say hey.</h1>
+          <p className="text-xl md:text-2xl text-gray-400 mt-8 md:mt-10">
+            Not sure where to start?
+          </p>
         </div>
+        <p className="text-xl md:text-2xl text-gray-400 mt-6 leading-relaxed">
+          Tell us about your product, your timeline, <br className="hidden md:block" />
+          how you heard about us, and where you're located.
+        </p>
+        <p className="text-xl md:text-2xl text-gray-400 mt-6 leading-relaxed">
+          We read every message. So, thanks in advance for <br className="hidden md:block" />
+          making it a good one.
+        </p>
+        <a href="#" className="text-white text-xl md:text-2xl underline mt-6 block">
+          Looking for a job?
+        </a>
+      </div>
 
-        {/* Right Side - Form */}
-        <div className="md:w-2/3">
-          <h2 className="text-4xl font-semibold mb-6">Tell us about your project</h2>
-
-          {/* Service Selection */}
-          <div className="mb-6">
-            <p className="text-lg mb-2">Service</p>
-            <div className="flex gap-4">
-              {["Design", "Development", "Other"].map((service) => (
-                <button
-                  key={service}
-                  className={`px-4 py-2 rounded-full border ${
-                    formData.service === service ? "bg-gray-700 border-gray-500" : "border-gray-500"
-                  }`}
-                  onClick={() => setFormData({ ...formData, service })}
-                >
-                  {service}
-                </button>
-              ))}
+      {/* Right Side Form */}
+      <div className="md:w-2/3 lg:w-1/2 p-6 md:p-8 w-full bg-black">
+        <form className="space-y-10 font-[Inter]">
+          {/* First Row - Name & Email */}
+          <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0">
+            <div className="w-full">
+              <label className="block text-white text-lg md:text-xl mb-3">Name*</label>
+              <input
+                type="text"
+                placeholder="Enter your name"
+                className="w-full bg-transparent border-b border-gray-500 p-3 text-white text-lg md:text-xl outline-none"
+              />
+            </div>
+            <div className="w-full">
+              <label className="block text-white text-lg md:text-xl mb-3">Email*</label>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-full bg-transparent border-b border-gray-500 p-3 text-white text-lg md:text-xl outline-none"
+              />
             </div>
           </div>
 
-          {/* Budget Selection in INR */}
-          {/* <div className="mb-6">
-            <p className="text-lg mb-2">Budget in INR (₹)</p>
-            <div className="flex gap-4 flex-wrap">
-              {["₹1L-₹2L", "₹2L-₹5L", "₹5L-₹10L", "₹10L+", "Other"].map((budget) => (
-                <button
-                  key={budget}
-                  className={`px-4 py-2 rounded-full border ${
-                    formData.budget === budget ? "bg-gray-700 border-gray-500" : "border-gray-500"
-                  }`}
-                  onClick={() => setFormData({ ...formData, budget })}
-                >
-                  {budget}
-                </button>
-              ))}
+          {/* Second Row - How did you hear of us? & What stage is your company? */}
+          <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0">
+            <div className="w-full">
+              <label className="block text-white text-lg md:text-xl mb-3">How did you hear of us?*</label>
+              <input
+                type="text"
+                placeholder="Enter your answer"
+                className="w-full bg-transparent border-b border-gray-500 p-3 text-white text-lg md:text-xl outline-none"
+              />
             </div>
-          </div> */}
-
-          {/* Input Fields */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              className="p-3 bg-transparent border-b border-gray-500 focus:outline-none w-full"
-              onChange={handleChange}
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              className="p-3 bg-transparent border-b border-gray-500 focus:outline-none w-full"
-              onChange={handleChange}
-            />
+            <div className="w-full">
+              <label className="block text-white text-lg md:text-xl mb-3">What stage is your company?</label>
+              <select className="w-full bg-transparent border-b border-gray-500 p-3 text-white text-lg md:text-xl outline-none">
+                <option className="text-black">Select One</option>
+                <option className="text-black">Early stage startup</option>
+                <option className="text-black">Mid stage startup</option>
+                <option className="text-black">Late stage startup</option>
+                <option className="text-black">Enterprise</option>
+              </select>
+            </div>
           </div>
 
-          {/* Description Field */}
-          <textarea
-            name="description"
-            placeholder="Description"
-            className="w-full p-3 bg-transparent border-b border-gray-500 focus:outline-none mb-6"
-            rows="4"
-            onChange={handleChange}
-          ></textarea>
+          {/* Third Row - Message */}
+          <div>
+            <label className="block text-white text-lg md:text-xl mb-3">Message*</label>
+            <textarea
+              placeholder="Type your message"
+              className="w-full bg-transparent border-b border-gray-500 p-3 text-white text-lg md:text-xl outline-none"
+            ></textarea>
+          </div>
 
-          {/* Submit Button with Arrow Icon */}
-          <button className="px-6 py-3 bg-black border-2 text-2xl border-white text-white font-semibold rounded-full flex items-center gap-2 hover:bg-gray-300 transition">
-            Book a Meeting
-            <ArrowUpRight className="w-8 h-8 text-black text-2xl font-semibold bg-white rounded-full p-1" />
-          </button>
-        </div>
+          {/* Checkbox and Submit Button in the Same Row */}
+          <div className="flex flex-col md:flex-row items-center justify-between w-full space-y-6 md:space-y-0">
+            <div className="flex items-center space-x-3">
+              <input type="checkbox" className="w-5 h-5 md:w-6 md:h-6" />
+              <label className="text-white text-lg md:text-xl">Signup to Newsletter</label>
+            </div>
+
+            <button
+              type="submit"
+              className="text-white text-lg md:text-xl font-semibold focus:outline-none backdrop-blur-lg bg-white/20 px-6 py-3 rounded-full transition-all duration-300 hover:bg-black hover:border-2 hover:border-white"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
-
-      {/* New Section with Logo and Icons */}
-      <div className="w-full max-w-5xl flex items-center justify-between pb-4 border-b border-gray-500 mb-8">
-        {/* Logo */}
-        <img src="https://cognimuse-main.web.app/images/cognimuse.png" alt="Logo" className="h-20 w-20" />
-        {/* Icons */}
-        <div className="flex gap-4 text-md">
-          <FaLinkedin className="cursor-pointer hover:text-gray-400" />
-          <FaMedium className="cursor-pointer hover:text-gray-400" />
-          <FaBehance className="cursor-pointer hover:text-gray-400" />
-          <FaPhone className="cursor-pointer hover:text-gray-400" />
-          <FaEnvelope className="cursor-pointer hover:text-gray-400" />
-        </div>
-      </div>
-
-      {/* Footer Section */}
-      <div className="w-full max-w-5xl flex flex-col md:flex-row items-center justify-between pb-0 text-center md:text-left">
-  <h2 className="text-sm font-semibold flex items-center gap-2 mb-4 md:mb-0">
-    2025. All rights reserved by cognimuse.design
-  </h2>
-  {/* Navigation Links */}
-  <div className="flex flex-wrap justify-center md:justify-end gap-4">
-    <a href="#" className="hover:text-gray-400">Home</a>
-    <a href="#" className="hover:text-gray-400">About</a>
-    <a href="#" className="hover:text-gray-400">Portfolio</a>
-    <a href="#" className="hover:text-gray-400">Work</a>
-    <a href="#" className="hover:text-gray-400">Contact</a>
-  </div>
-</div>
     </div>
   );
-}
+};
+
+export default ContactForm;

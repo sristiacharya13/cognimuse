@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme{
+  --font-orbitron:"Orbitron", sans-serif;
+  --font-inter:"Inter", sans-serif;
+}
+
 @keyframes marquee {
   from {
     transform: translateX(100%);
@@ -86,3 +91,20 @@
   }
 }
 
+@keyframes holographicGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.holographic-hover:hover {
+  background: linear-gradient(135deg, #ff00ff, #00ffff, #ff6600, #00ff66);
+  color: white;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  transition: all 0.3s ease-in-out;
+}
+
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif;
+}

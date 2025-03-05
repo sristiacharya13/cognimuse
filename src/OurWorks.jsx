@@ -1,121 +1,111 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 
-const projects = [
+const services = [
   {
-    id: "branding",
-    number: "001",
-    title: "Branding",
-    image: "src/assets/brand-identity-design-custommade.webp",
-    description: "Crafting unique brand identities that capture your essence and resonate with your target audience.",
-    category: "Branding",
-    year: "2024",
-    link: "#",
+    title: "BRANDING",
+    description:
+      "We design brands with clear identity and strategic messaging to help businesses create consistent, engaging experiences that connect",
+    details: ["Brand Strategy", "Visual Identity", "Brand Guidelines"],
+    image: "src/assets/Duct Tape Mockup.png",
+    color: "linear-gradient(135deg, #E97FD0, #6968FB, #CDF286)",
   },
   {
-    id: "logo-design",
-    number: "002",
-    title: "Logo Design",
-    image: "src/assets/gm.webp",
-    description: "Creating distinctive visual symbols that become the memorable face of your business.",
-    category: "Design",
-    year: "2024",
-    link: "#",
+    title: "UI/UX DESIGN",
+    description:
+      "We create user-centered digital experiences that balance aesthetics with functionality, ensuring intuitive interactions at every step",
+    details: ["Wireframing", "Prototyping", "User Research"],
+    image: "src/assets/35074109_2311202312.png",
+    color: "linear-gradient(135deg, #E97FD0, #6968FB, #CDF286)",
   },
   {
-    id: "uiux-design",
-    number: "003",
-    title: "UI/UX Design",
-    image: "src/assets/uiux.webp",
-    description: "Developing intuitive digital interfaces that enhance user experience and drive engagement.",
-    category: "UI/UX",
-    year: "2023",
-    link: "#",
+    title: "WEBSITE DESIGN",
+    description:
+      "We build modern, high-performing websites that engage users and reflect your brand, helping you stand out from the crowd",
+    details: ["Responsive Design", "SEO Optimization", "E-commerce Solutions"],
+    image: "src/assets/Group 1000002794.png",
+    color: "linear-gradient(135deg, #E97FD0, #6968FB, #CDF286)",
   },
-  {
-    id: "product-design",
-    number: "004",
-    title: "Product Design",
-    image: "src/assets/e2aa2b6027ea355f3ef3d3eff5bba4f3.webp",
-    description: "Transforming concepts into functional, aesthetically pleasing products that solve real problems.",
-    category: "Product",
-    year: "2023",
-    link: "#",
-  }
 ];
 
-export default function OurWorks() {
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const [hovered, setHovered] = useState(false);
+export default function DesignAgency() {
+  const [selectedService, setSelectedService] = useState(null);
 
-  const handleMouseMove = (e) => {
-    setCursorPos({ x: e.clientX, y: e.clientY });
+  const modalColors = {
+    "0%": "#E448FF",
+    "20%": "#FACF67",
+    "48%": "#6267F1",
+    "78%": "#DDE467",
+    "100%": "#98FC99",
+  };
+
+  const getGradientString = () => {
+    let gradient = "linear-gradient(to bottom, ";
+    for (const stop in modalColors) {
+      gradient += `${modalColors[stop]} ${stop}, `;
+    }
+    return gradient.slice(0, -2) + ")";
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="pb-12">
-        {projects.map((project) => (
-          <motion.div 
-            key={project.id}
-            id={project.id}
-            className="min-h-screen flex flex-col justify-center px-6 md:px-12 py-16"
-            initial={{ opacity: 0, x: -100 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 100 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: false, amount: 0.5 }}
+    <div className="min-h-screen bg-black text-white px-10 py-8">
+      {/* Updated Section to Show Selected Image */}
+      <div className="flex justify-center items-center h-[70vh] w-full transition-all duration-500 ease-in-out">
+        <div
+          className="w-76 h-76 border border-white rounded-full flex items-center justify-center relative overflow-hidden transition-all duration-500"
+          style={{ background: selectedService ? getGradientString() : "black" }}
+        >
+          {selectedService ? (
+            <img
+              src={selectedService.image}
+              alt={selectedService.title}
+              className="absolute inset-0 w-full h-full object-contain rounded-full"
+            />
+          ) : (
+            <h1 className="text-5xl font-bold text-center text-white font-[Orbitron]">
+              Services
+            </h1>
+          )}
+        </div>
+      </div>
+
+      {/* Services Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 transition-all">
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className={`p-6 border border-gray-600 rounded-3xl shadow-2xl cursor-pointer transition-all text-white w-full max-w-md mx-auto text-left ${
+              selectedService?.title === service.title
+                ? "scale-105 border-white shadow-lg"
+                : "opacity-100"
+            }`}
+            onClick={() => setSelectedService(service)}
+            style={{
+              transition: "background-color 0.3s ease, transform 0.3s ease",
+              background: "transparent",
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.background = service.color)
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.background = "transparent")}
           >
-            <div className="flex flex-col md:flex-row w-full max-w-6xl mx-auto gap-8 md:gap-12 items-center">
-              <div 
-                className="w-full md:w-1/2 relative group"
-                onMouseMove={handleMouseMove}
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
-              >
-                <motion.img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                {hovered && (
-                  <motion.div 
-                    className="absolute w-20 h-20 bg-white rounded-full flex items-center justify-center text-black font-medium"
-                    style={{ position: 'fixed', left: cursorPos.x - 40, top: cursorPos.y - 40 }}
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.5 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    View
-                  </motion.div>
-                )}
-              </div>
-              <div className="w-full md:w-1/2 flex flex-col space-y-4">
-                <motion.span 
-                  className="text-5xl md:text-7xl font-bold opacity-50"
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -50 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                  {project.number}
-                </motion.span>
-                <motion.div 
-                  className="flex flex-col space-y-2"
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -50 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                  <div className="text-sm font-medium text-gray-400">{project.category} Â· {project.year}</div>
-                  <h2 className="text-3xl md:text-4xl font-bold leading-tight">{project.title}</h2>
-                  <p className="text-gray-400 mt-2 text-lg">{project.description}</p>
-                  <a href={project.link} className="inline-block mt-6 border-b border-white pb-1 text-sm font-medium hover:text-gray-300 transition-colors w-max">EXPLORE SERVICE</a>
-                </motion.div>
-              </div>
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold font-[Inter]">{service.title}</h2>
+              <ArrowUpRight size={28} className="text-white" />
             </div>
-          </motion.div>
+            <p className="text-m text-white mt-2 font-[Inter]">{service.description}</p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {service.details.map((detail, i) => (
+                <span
+                  key={i}
+                  className="backdrop-blur-xl bg-white/30 text-gray-200 px-4 py-2 rounded-full text-m font-semibold font-[Inter]"
+                >
+                  {detail}
+                </span>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </div>

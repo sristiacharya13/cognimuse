@@ -7,7 +7,7 @@ const services = [
     description:
       "We design brands with clear identity and strategic messaging to help businesses create consistent, engaging experiences that connect",
     details: ["Brand Strategy", "Visual Identity", "Brand Guidelines"],
-    image: "src/assets/Duct Tape Mockup.png",
+    image: "/Duct Tape Mockup.png",
     color: "linear-gradient(135deg, #E97FD0, #6968FB, #CDF286)",
   },
   {
@@ -15,7 +15,7 @@ const services = [
     description:
       "We create user-centered digital experiences that balance aesthetics with functionality, ensuring intuitive interactions at every step",
     details: ["Wireframing", "Prototyping", "User Research"],
-    image: "src/assets/35074109_2311202312.png",
+    image: "/35074109_2311202312.png",
     color: "linear-gradient(135deg, #E97FD0, #6968FB, #CDF286)",
   },
   {
@@ -23,7 +23,7 @@ const services = [
     description:
       "We build modern, high-performing websites that engage users and reflect your brand, helping you stand out from the crowd",
     details: ["Responsive Design", "SEO Optimization", "E-commerce Solutions"],
-    image: "src/assets/Group 1000002794.png",
+    image: "/Group 1000002794.png",
     color: "linear-gradient(135deg, #E97FD0, #6968FB, #CDF286)",
   },
 ];

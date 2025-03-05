@@ -255,6 +255,7 @@ import Contact from './Contact'
 import Hero from './Hero'
 import Navbar from './Navbar'
 import OurWorks from './OurWorks'
+import Works from './ComingSoon'
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -268,9 +269,34 @@ function App() {
             <Navbar/>
             <Hero/>
             <OurWorks/>
-            <Contact />
+            <Contact/>
           </>
           }
+      />
+      <Route
+          path="/works"
+          element={
+          <>
+            <Works/>
+          </>
+          }
+      />
+      <Route
+        path="/services"
+        element={
+          <>
+            <OurWorks/>
+          </>
+        }
+      />
+
+      <Route
+        path="/contact"
+        element={
+          <>
+            <Contact/>
+          </>
+        }
       />
     </Routes>
   </>

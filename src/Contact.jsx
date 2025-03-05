@@ -1,8 +1,9 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const ContactForm = () => {
   return (
-    <div className="w-full min-h-screen flex flex-col md:flex-row justify-center md:justify-between items-center px-6 md:px-12 lg:px-20 py-12 bg-black">
+    <div id="contact" className="w-full min-h-screen flex flex-col md:flex-row justify-center md:justify-between items-center px-6 md:px-12 lg:px-20 py-12 bg-black">
       {/* Left Side Content */}
       <div className="md:w-1/2 mb-10 md:mb-0 font-[Inter] text-center md:text-left">
         <div className="flex flex-col items-center md:items-start">
@@ -19,9 +20,9 @@ const ContactForm = () => {
           We read every message. So, thanks in advance for <br className="hidden md:block" />
           making it a good one.
         </p>
-        <a href="#" className="text-white text-xl md:text-2xl underline mt-6 block">
+        <Link to="ComingSoon" className="text-white text-xl md:text-2xl underline mt-6 block">
           Looking for a job?
-        </a>
+        </Link>
       </div>
 
       {/* Right Side Form */}

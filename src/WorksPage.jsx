@@ -112,12 +112,84 @@
 //     </div>
 //   );
 // }
-import React from 'react'
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
-const ComingSoon = () => {
+const firstWork = {
+  id: 1,
+  title: "coming soon ",
+  image: "works.jpg",
+  description:
+    "We're working behind the scenes to bring you something amazing. Stay tuned!.",
+};
+
+export default function WorksPage() {
+  const [pageState, setPageState] = useState("hidden");
+
+  useEffect(() => {
+    const timer1 = setTimeout(() => {
+      setPageState("fullscreen");
+    }, 500);
+
+    const timer2 = setTimeout(() => {
+      setPageState("settled");
+    }, 2500);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, []);
+
   return (
-    <div>Works</div>
-  )
-}
+    <div className="relative w-full min-h-screen bg-black text-white">
+      {/* Hidden Initial State */}
+      {pageState === "hidden" && <div className="fixed inset-0 bg-black z-50"></div>}
 
-export default ComingSoon
+      {/* Fullscreen Project Image */}
+      {pageState === "fullscreen" && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 2 }}
+          className="fixed inset-0 z-50 flex items-center justify-center"
+        >
+          <motion.img
+            src={firstWork.image}
+            alt={firstWork.title}
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+      )}
+
+      {/* Main Content Container */}
+      <div className="pt-24 space-y-24 relative z-10">
+        {/* First Project - Settled State */}
+        {pageState === "settled" && (
+          <div className="relative">
+            {/* Project Details */}
+            <div className="container mx-auto px-4 mb-12">
+              <h2 className="text-6xl md:text-8xl font-bold text-white text-center font-[Inter]">{firstWork.title}</h2>
+              <p className="text-4xl max-w-4xl mx-auto leading-relaxed text-center font-[Inter]">
+                {firstWork.description}
+              </p>
+            </div>
+
+            {/* Image Below Viewport */}
+            <motion.div
+              initial={{ y: 0 }}
+              animate={{ y: "50px", transition: { duration: 1 } }}
+              className="w-full"
+            >
+              <img
+                src={firstWork.image}
+                alt={firstWork.title}
+                className="w-full object-cover"
+              />
+            </motion.div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

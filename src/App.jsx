@@ -255,7 +255,7 @@ import Contact from './Contact'
 import Hero from './Hero'
 import Navbar from './Navbar'
 import OurWorks from './OurWorks'
-import Works from './ComingSoon'
+import WorksPage from './WorksPage'
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -277,7 +277,7 @@ function App() {
           path="/works"
           element={
           <>
-            <Works/>
+            <WorksPage/>
           </>
           }
       />
@@ -285,6 +285,7 @@ function App() {
         path="/services"
         element={
           <>
+            
             <OurWorks/>
           </>
         }

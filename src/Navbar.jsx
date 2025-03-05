@@ -117,7 +117,7 @@ const Navbar = ({ heroRef, worksRef, contactRef, servicesRef }) => {
             }`}
           >
             <Link
-              to="/ComingSoon"
+              to="/works"
               className="hover:text-white text-white text-sm font-[Inter] font-semibold focus:outline-none backdrop-blur-lg w-19 bg-white/20 px-4 py-2 rounded-full transition-all duration-300 hover:bg-black hover:border-2 hover:border-white text-left right-0"
               onClick={toggleMenu}
             >
@@ -130,13 +130,13 @@ const Navbar = ({ heroRef, worksRef, contactRef, servicesRef }) => {
             >
               Services
             </Link>
-            <Link
+            <button
               to="/contact"
               className="hover:text-white text-white text-sm font-[Inter] font-semibold focus:outline-none backdrop-blur-lg bg-white/20 px-4 py-2 rounded-full transition-all duration-300 hover:bg-black hover:border-2 hover:border-white w-full text-left"
-              onClick={toggleMenu}
+              onClick={() => setIsCalendlyOpen(true)}
             >
               Get in touch
-            </Link>
+            </button>
           </div>
         )}
       </div>

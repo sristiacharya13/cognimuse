@@ -73,7 +73,7 @@ const Navbar = ({ heroRef, worksRef, contactRef, servicesRef }) => {
   return (
     <>
       <div className="w-full">
-        <nav className="fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-6 bg-transparent backdrop-blur-md">
+        <nav className="relative w-full bg-black z-50 flex justify-between items-center px-6 md:px-12 py-6 backdrop-blur-md">
           {/* Mobile View: Logo on the left, Menu on the right */}
           <div className="flex w-full md:w-auto md:justify-between items-center">
             {/* Logo - Left for Mobile, Center for Desktop */}
@@ -124,13 +124,12 @@ const Navbar = ({ heroRef, worksRef, contactRef, servicesRef }) => {
     >
       Works
     </Link>
-    <Link
-      to="/services"
+    <button
       className="hover:text-white text-white text-sm font-[Inter] font-semibold focus:outline-none backdrop-blur-lg w-22 bg-white/20 px-4 py-2 rounded-full transition-all duration-300 hover:bg-black hover:border-2 hover:border-white text-right md:text-left"
-      onClick={toggleMenu}
+      onClick={() => worksRef?.current?.scrollIntoView({ behavior: "smooth" })}
     >
       Services
-    </Link>
+    </button>
     <button
       className="hover:text-white text-white text-sm font-[Inter] font-semibold focus:outline-none backdrop-blur-lg bg-white/20 px-4 py-2 rounded-full transition-all duration-300 hover:bg-black hover:border-2 hover:border-white w-full text-right md:text-left"
       onClick={() => setIsCalendlyOpen(true)}

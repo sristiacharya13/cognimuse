@@ -251,56 +251,90 @@
 // }
 
 // export default App;
-import Contact from './Contact'
-import Hero from './Hero'
-import Navbar from './Navbar'
-import OurWorks from './OurWorks'
-import WorksPage from './WorksPage'
-import { Routes, Route } from "react-router-dom";
+// import Contact from './Contact'
+// import Hero from './Hero'
+// import Navbar from './Navbar'
+// import OurWorks from './OurWorks'
+// import WorksPage from './WorksPage'
+// import { Routes, Route } from "react-router-dom";
 
-function App() {
- return (
-  <>
-  <Routes>
-      <Route
+// function App() {
+//  return (
+//   <>
+//   <Routes>
+//       <Route
+//           path="/"
+//           element={
+//           <>
+//             <Navbar/>
+//             <Hero/>
+//             <OurWorks/>
+//             <Contact/>
+//           </>
+//           }
+//       />
+//       <Route
+//           path="/works"
+//           element={
+//           <>
+//             <WorksPage/>
+//           </>
+//           }
+//       />
+//       <Route
+//         path="/services"
+//         element={
+//           <>
+            
+//             <OurWorks/>
+//           </>
+//         }
+//       />
+
+//       <Route
+//         path="/contact"
+//         element={
+//           <>
+//             <Contact/>
+//           </>
+//         }
+//       />
+//     </Routes>
+//   </>
+//  )
+// }
+// export default App
+import React, { useRef } from "react";
+import { Routes, Route } from "react-router-dom"; // Remove BrowserRouter here
+import Navbar from "./Navbar";
+import Hero from "./Hero";
+import OurWorks from "./OurWorks";
+import Contact from "./Contact";
+import WorksPage from "./WorksPage"; // Import WorksPage component
+
+const App = () => {
+  const worksRef = useRef(null);
+
+  return (
+    <>
+      <Routes>
+        <Route
           path="/"
           element={
-          <>
-            <Navbar/>
-            <Hero/>
-            <OurWorks/>
-            <Contact/>
-          </>
+            <>
+              <Navbar worksRef={worksRef} />
+              <Hero />
+              <div ref={worksRef}>
+                <OurWorks />
+              </div>
+              <Contact />
+            </>
           }
-      />
-      <Route
-          path="/works"
-          element={
-          <>
-            <WorksPage/>
-          </>
-          }
-      />
-      <Route
-        path="/services"
-        element={
-          <>
-            
-            <OurWorks/>
-          </>
-        }
-      />
+        />
+        <Route path="/works" element={<WorksPage />} />
+      </Routes>
+    </>
+  );
+};
 
-      <Route
-        path="/contact"
-        element={
-          <>
-            <Contact/>
-          </>
-        }
-      />
-    </Routes>
-  </>
- )
-}
-export default App
+export default App;

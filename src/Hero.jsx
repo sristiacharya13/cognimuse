@@ -3,15 +3,13 @@ import SplineScene from "./SplineScene";
 
 const Hero = () => {
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-hidden">
+    <div className="min-h-screen bg-black text-white overflow-hidden">
       {/* Animated Spline Scene (Original Desktop Position) */}
       <div
         className="w-3/4 h-full absolute right-0 top-0 flex items-center justify-center"
       >
         <SplineScene />
       </div>
-
-
 
       {/* Original Desktop Bottom Left Text */}
       <div className="hidden md:block absolute bottom-20 left-20 text-left font-[Orbitron] z-10">

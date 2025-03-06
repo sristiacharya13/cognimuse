@@ -110,35 +110,36 @@ const Navbar = ({ heroRef, worksRef, contactRef, servicesRef }) => {
         </nav>
 
         {/* Responsive Dropdown Menu */}
-        {isOpen && (
-          <div
-            className={`bg-opacity-80 text-white text-lg flex flex-col items-start space-y-4 py-6 px-6 fixed top-[60px] z-50 rounded-lg ${
-              isMobile ? "right-0" : "left-6"
-            }`}
-          >
-            <Link
-              to="/works"
-              className="hover:text-white text-white text-sm font-[Inter] font-semibold focus:outline-none backdrop-blur-lg w-19 bg-white/20 px-4 py-2 rounded-full transition-all duration-300 hover:bg-black hover:border-2 hover:border-white text-left right-0"
-              onClick={toggleMenu}
-            >
-              Works
-            </Link>
-            <Link
-              to="/services"
-              className="hover:text-white text-white text-sm font-[Inter] font-semibold focus:outline-none backdrop-blur-lg w-22 bg-white/20 px-4 py-2 rounded-full transition-all duration-300 hover:bg-black hover:border-2 hover:border-white text-left"
-              onClick={toggleMenu}
-            >
-              Services
-            </Link>
-            <button
-              to="/contact"
-              className="hover:text-white text-white text-sm font-[Inter] font-semibold focus:outline-none backdrop-blur-lg bg-white/20 px-4 py-2 rounded-full transition-all duration-300 hover:bg-black hover:border-2 hover:border-white w-full text-left"
-              onClick={() => setIsCalendlyOpen(true)}
-            >
-              Get in touch
-            </button>
-          </div>
-        )}
+{/* Responsive Dropdown Menu */}
+{isOpen && (
+  <div
+    className={`bg-opacity-80 text-white text-lg flex flex-col space-y-4 py-6 px-6 fixed top-[60px] z-50 rounded-lg ${
+      isMobile ? "right-0 items-end text-right" : "left-6 items-start text-left"
+    }`}
+  >
+    <Link
+      to="/works"
+      className="hover:text-white text-white text-sm font-[Inter] font-semibold focus:outline-none backdrop-blur-lg w-19 bg-white/20 px-4 py-2 rounded-full transition-all duration-300 hover:bg-black hover:border-2 hover:border-white text-right md:text-left"
+      onClick={toggleMenu}
+    >
+      Works
+    </Link>
+    <Link
+      to="/services"
+      className="hover:text-white text-white text-sm font-[Inter] font-semibold focus:outline-none backdrop-blur-lg w-22 bg-white/20 px-4 py-2 rounded-full transition-all duration-300 hover:bg-black hover:border-2 hover:border-white text-right md:text-left"
+      onClick={toggleMenu}
+    >
+      Services
+    </Link>
+    <button
+      className="hover:text-white text-white text-sm font-[Inter] font-semibold focus:outline-none backdrop-blur-lg bg-white/20 px-4 py-2 rounded-full transition-all duration-300 hover:bg-black hover:border-2 hover:border-white w-full text-right md:text-left"
+      onClick={() => setIsCalendlyOpen(true)}
+    >
+      Get in touch
+    </button>
+  </div>
+)}
+
       </div>
 
       {/* Calendly Modal */}
